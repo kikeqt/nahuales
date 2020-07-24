@@ -1,28 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Byte tools"""
-
-__author__ = 'M. en C. Carlos Enrique Quijano Tapia (kike.qt@gmail.com)'
-__copyright__ = "(c) Carlos Enrique Quijano Tapia 2018"
-__credits__ = ""
-
-__licence__ = "GPLv3"
-__version__ = "$Version: 0 Revision: 0 Since: 15/02/2018"
-__maintainer__ = "Carlos Enrique Quijano Tapia"
-__email__ = "kike.qt@gmail.com"
-__status__ = "Developing"
-
-# $Source$
-# External libraries
 from math import ceil
 from struct import pack
-
-# Project libraries
 
 myByteOrder = "big"
 myByteOrderStruct = ">f"
 
 
-def activeBits(argBytes: bytes) -> list:
+def activeBits(argBytes: bytes):
 	"""Vector with the positions of active bits in notation little endian
 
 	Note:  Please see activeBitsIterable
@@ -48,7 +32,7 @@ def activeBits(argBytes: bytes) -> list:
 		return vActiveBits
 
 
-def activeBitsIterable(argBytes: bytes) -> int:
+def activeBitsIterable(argBytes: bytes):
 	"""Generator with the positions of active bits in notation little endian
 
 	Note:
@@ -71,10 +55,6 @@ def activeBitsIterable(argBytes: bytes) -> int:
 		print('Fatal error: The argument must be a byte type')
 		exit()
 
-	#if block == 0:
-	#	yield []
-
-	#else:
 	sizeBlock = len(argBytes)
 
 	for bit in range(sizeBlock * 8):
@@ -82,7 +62,7 @@ def activeBitsIterable(argBytes: bytes) -> int:
 			yield bit
 
 
-def bin2Str(argData: int, argWidth: int=0) -> str:
+def bin2Str(argData: int, argWidth: int=0):
 	"""Convert a number to binary representation"""
 	if argWidth == 0:
 		argWidth = (argData.bit_length() + 7) // 8 * 8
@@ -91,7 +71,7 @@ def bin2Str(argData: int, argWidth: int=0) -> str:
 	return fmt.format(argData)
 
 
-def binStr2Bytes(argData: str, argSize: int=0) -> bytes:
+def binStr2Bytes(argData: str, argSize: int=0):
 	"""Translate a string of ones and zeros to bytes"""
 	myOutputBytes = b''
 	argData = argData.strip()
@@ -115,7 +95,7 @@ def binStr2Bytes(argData: str, argSize: int=0) -> bytes:
 	return myOutputBytes
 
 
-def bytes2DecimalPart(argBytes: bytes) -> float:
+def bytes2DecimalPart(argBytes: bytes):
 	"""Convert a set of bytes to the decimal part of a number"""
 	if isinstance(argBytes, int):
 		argBytes = int2bytes(argBytes)
@@ -133,12 +113,12 @@ def bytes2DecimalPart(argBytes: bytes) -> float:
 		return None
 
 
-def bytes2int(argBytes: bytes) -> int:
+def bytes2int(argBytes: bytes):
 	"""Translate a data type data "bytes" to an integer"""
 	return int.from_bytes(argBytes, myByteOrder)
 
 
-def bytes2BitIter(argBytes: bytes, argMaxReading: int=0) -> int:
+def bytes2BitIter(argBytes: bytes, argMaxReading: int=0):
 	"""Run a Byte data set bit by bit"""
 	if argMaxReading == 0:
 		argMaxReading = len(argBytes) * 8
@@ -153,7 +133,7 @@ def bytes2BitIter(argBytes: bytes, argMaxReading: int=0) -> int:
 				yield cByte >> cBit & 0b1
 
 
-def countActiveBits(argBytes: bytes, argSize: int=0) -> list:
+def countActiveBits(argBytes: bytes, argSize: int=0):
 	"""Count active bits
 
 	Note:
@@ -193,7 +173,7 @@ def countActiveBits(argBytes: bytes, argSize: int=0) -> list:
 		return cntOnes
 
 
-def countUnActiveBits(argBytes: bytes, argSize: int=0) -> list:
+def countUnActiveBits(argBytes: bytes, argSize: int=0):
 	"""Count un-active bits
 
 	Note:
@@ -212,7 +192,7 @@ def countUnActiveBits(argBytes: bytes, argSize: int=0) -> list:
 	return argSize - countActiveBits(argBytes, argSize)
 	
 
-def int2bytes(argInt: int, argTrim: int=0) -> bytes:
+def int2bytes(argInt: int, argTrim: int=0):
 	"""Translate an integer to data type bytes format"""
 	localLength = argTrim
 
@@ -225,7 +205,7 @@ def int2bytes(argInt: int, argTrim: int=0) -> bytes:
 	return argInt.to_bytes(localLength, byteorder=myByteOrder)
 
 
-def float2bytes(argFloat: float) -> bytes:
+def float2bytes(argFloat: float):
 	"""Translate a floating number to the data type bytes"""
 	# TODO(find how to represent sign, int part and mantissa, that python does
 	# not necessarily represent large float numbers in the same way that other
@@ -233,12 +213,12 @@ def float2bytes(argFloat: float) -> bytes:
 	return bytearray(pack(myByteOrderStruct, argFloat))
 
 
-def getByte(argBytes:bytes, argPos: int) -> bytes:
+def getByte(argBytes:bytes, argPos: int):
 	"""Get a byte of a group of bytes"""
 	return argBytes[argPos: argPos + 1]
 
 
-def readBit(argBytes: bytes, argPos: int) -> int:
+def readBit(argBytes: bytes, argPos: int):
 	"""Read a bit of the indicated position"""
 	#argPos %= len(argBytes) * 8
 	return bytes2int(argBytes) >> argPos & 0b1
@@ -250,10 +230,13 @@ def replaceByte(argBytes: bytes, argByte: bytes, argPos:int):
 
 	if argPos == 0:
 		output = argByte + argBytes[argPos+1:]
+
 	elif (0 < argPos < len(argBytes)):
 		output = argBytes[:argPos] + argByte + argBytes[argPos+1:]
+
 	elif argPos == len(argBytes) - 1 :
 		output = argBytes[: argPos-1] + argByte
+
 	else:
 		print('Fatal error (replaceByte): The indicated position is outside the set of bytes')
 		output = b''
@@ -265,7 +248,7 @@ def replaceByte(argBytes: bytes, argByte: bytes, argPos:int):
 	return output
 
 
-def rol(argBytes: bytes, argShift: int=1) -> bytes:
+def rol(argBytes: bytes, argShift: int=1):
 	"""Circular shift to the left"""
 	block = 0
 	sizeBlock = len(argBytes)
@@ -293,7 +276,7 @@ def rol(argBytes: bytes, argShift: int=1) -> bytes:
 		exit()
 
 
-def rol4Bytes(argBytes: bytes, argShift: int = 1) -> bytes:
+def rol4Bytes(argBytes: bytes, argShift: int = 1):
 	"""Circular shift to the left"""
 	argShift %= len(argBytes)
 
@@ -305,7 +288,7 @@ def rol4Bytes(argBytes: bytes, argShift: int = 1) -> bytes:
 		exit()
 
 
-def ror(argBytes: bytes, argShift: int=1) -> bytes:
+def ror(argBytes: bytes, argShift: int=1):
 	"""Circular shift to the right"""
 	block = 0
 	sizeBlock = len(argBytes)
@@ -333,70 +316,64 @@ def ror(argBytes: bytes, argShift: int=1) -> bytes:
 		exit()
 
 
-def ror4Bytes(argBytes: bytes, argShift: int = 1) -> bytes:
+def ror4Bytes(argBytes: bytes, argShift: int = 1):
 	"""Circular shift to the right"""
 	argShift %= len(argBytes)
 
 	if isinstance(argBytes, bytes):
 		return argBytes[-argShift:] + argBytes[:-argShift]
-		# return argBytes[:-argShift]
-		# return argBytes[-argShift:]
 
 	else:
 		print('Fatal error (ror4Bytes): The argument must be a byte type')
 		exit()
 
 
-def xor4bytes(argMsg: bytes, argMask: bytes) -> bytes:
+def xor4bytes(argMsg: bytes, argMask: bytes):
 	"""Does the XOR operation on two bytes"""
 	output = bytes(m ^ x for m, x in zip(argMsg, argMask[:len(argMsg)]))
 
 	if len(output) != len(argMask):
 		print('\tFatal error (xor4bytes): data was lost in the conversion {} vs {}, {}'.format(
 			len(output), len(argMsg), len(argMask)))
-		# output += bytes([0, ])
-		# exit()
 		return output
+
 	else:
 		return output
 
 
 if __name__ == '__main__':
-	from os import system
-	import platform
+	from myTools import clear_console
 
-	if platform.system() == 'Windows':
-		system('CLS')
-
-	else:
-		system('clear')
+	clear_console()
 	
 	varTest = b'1234567890'
 
 	print(activeBits(b'123'))
 	
-	# # for i in [b'0',b'1',b'10',b'11',b'100',b'101',b'110',b'111',b'11111111']:
-	# for i in range(0,256):
-	# 	print(bin2Str(i,8), bytes2DecimalPart(i))
-
-	# print('')
+	for i in range(0,256):
+		print(bin2Str(i,8), bytes2DecimalPart(i))
+	print()
 	
-	# for i in range(20*8 + 1):
-	# 	print(f'ror: {i} {ror(varTest, i)}')
+	for i in range(20*8 + 1):
+		print(f'ror: {i} {ror(varTest, i)}')
+	print()
 
-	# for i in range(20 + 1):
-	# 	print(f'ror4Bytes: {i} {ror4Bytes(varTest, i)}')
+	for i in range(20 + 1):
+		print(f'ror4Bytes: {i} {ror4Bytes(varTest, i)}')
+	print()
 
 	for i in range(20*8 + 1):
 		print(f'rol: {i} {rol(varTest, i)}')
+	print()
 
 	for i in range(20 + 1):
 		print(f'rol4Bytes: {i} {rol4Bytes(varTest, i)}')
+	print()
 
-	# print('\ngetByte(varTest,4): {}, type():{}'.format(
-	# 	getByte(varTest, 4), type(getByte(varTest, 4))))
+	print('\ngetByte(varTest,4): {}, type():{}'.format(
+		getByte(varTest, 4), type(getByte(varTest, 4))))
+	print()
 
-	print('')
-
-	# for i in range(10+1):
-	# 	print('replaceByte', i, replaceByte(varTest, b'X', i))
+	for i in range(9+1):
+		print('replaceByte', i, replaceByte(varTest, b'X', i))
+	print()
