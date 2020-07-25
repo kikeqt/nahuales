@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+__version__ = "$Version: 0.0.1"
+
 from math import ceil
 from struct import pack
 
