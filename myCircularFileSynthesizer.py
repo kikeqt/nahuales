@@ -179,9 +179,9 @@ class Circular_File_Synthesizer(object):
 
 if __name__ == '__main__':
 	"""Example of use"""
-	from myTools import clear_console
+	from myTools import show_example_of_use
 
-	clear_console()
+	show_example_of_use(__file__)
 
 	key = b'12345678'
 	file_list = ['myCircularFileSynthesizer.py']
