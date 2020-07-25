@@ -342,9 +342,9 @@ def xor4bytes(argMsg: bytes, argMask: bytes):
 
 
 if __name__ == '__main__':
-	from myTools import clear_console
+	from myTools import show_example_of_use
 
-	clear_console()
+	show_example_of_use(__file__)
 	
 	varTest = b'1234567890'
 
