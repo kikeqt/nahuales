@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+__version__ = "$Version: 1.0.0"
+
 from Crypto.Cipher import AES
 from hashlib import sha512 as defaultHash
 from hashlib import sha256 as cryptHash
