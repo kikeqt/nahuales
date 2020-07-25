@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+__version__ = "$Version: 0.1.0"
+
 import colorama
 from os import chdir, system
 from os.path import basename
