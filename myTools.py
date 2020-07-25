@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import colorama
 from os import chdir, system
+from os.path import basename
 from datetime import datetime
 import platform
 
@@ -14,6 +15,10 @@ def clear_console():
 
 	else:
 		system('clear')
+  
+def show_example_of_use(file):
+    clear_console()
+    printOK(f'Example of use by {basename(file)[:-3]}\n\n', False)
 
 
 def printOK(strOutput: str, showDate: str=True):
@@ -41,8 +46,8 @@ def printShow(strOutput: str, showDate: str=True):
 
 
 if __name__ == '__main__':
-	clear_console()
- 
+	show_example_of_use(__file__)
+
 	printOK('Mensaje')
 	printBad('Mensaje')
 	printWarning('Mensaje')
