@@ -21,27 +21,27 @@ def show_example_of_use(file):
     printOK(f'Example of use by {basename(file)[:-3]}\n\n', False)
 
 
-def printOK(strOutput: str, showDate: str=True):
-	timeStamp = f"{datetime.now().strftime('%H:%M:%S')} " if showDate else ""
-	print(colorama.Style.BRIGHT + colorama.Fore.GREEN + '{}{}'.format(timeStamp, strOutput) +
+def printOK(string_output: str, show_date: str=True):
+	timeStamp = f"{datetime.now().strftime('%H:%M:%S')} " if show_date else ""
+	print(colorama.Style.BRIGHT + colorama.Fore.GREEN + '{}{}'.format(timeStamp, string_output) +
 	      colorama.Back.RESET + colorama.Fore.RESET)
 
 
-def printBad(strOutput: str, showDate: str=True):
-	timeStamp = f"{datetime.now().strftime('%H:%M:%S')} " if showDate else ""
-	print(colorama.Style.BRIGHT + colorama.Fore.RED + '{}{}'.format(timeStamp, strOutput) +
+def printBad(string_output: str, show_date: str=True):
+	timeStamp = f"{datetime.now().strftime('%H:%M:%S')} " if show_date else ""
+	print(colorama.Style.BRIGHT + colorama.Fore.RED + '{}{}'.format(timeStamp, string_output) +
             colorama.Back.RESET + colorama.Fore.RESET + colorama.Style.RESET_ALL)
 
 
-def printWarning(strOutput: str, showDate: str=True):
-	timeStamp = f"{datetime.now().strftime('%H:%M:%S')} " if showDate else ""
-	print(colorama.Style.BRIGHT + colorama.Fore.YELLOW + '{}{}'.format(timeStamp, strOutput) +
+def printWarning(string_output: str, show_date: str=True):
+	timeStamp = f"{datetime.now().strftime('%H:%M:%S')} " if show_date else ""
+	print(colorama.Style.BRIGHT + colorama.Fore.YELLOW + '{}{}'.format(timeStamp, string_output) +
             colorama.Back.RESET + colorama.Fore.RESET + colorama.Style.RESET_ALL)
 
 
-def printShow(strOutput: str, showDate: str=True):
-	timeStamp = f"{datetime.now().strftime('%H:%M:%S')} " if showDate else ""
-	print(colorama.Style.BRIGHT + colorama.Fore.BLUE + '{}{}'.format(timeStamp, strOutput) +
+def printShow(string_output: str, show_date: str=True):
+	timeStamp = f"{datetime.now().strftime('%H:%M:%S')} " if show_date else ""
+	print(colorama.Style.BRIGHT + colorama.Fore.BLUE + '{}{}'.format(timeStamp, string_output) +
             colorama.Back.RESET + colorama.Fore.RESET + colorama.Style.RESET_ALL)
 
 
