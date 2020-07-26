@@ -19,7 +19,7 @@ def clear_console():
   
 def show_example_of_use(file):
     clear_console()
-    printOK(f'Example of use by {basename(file)[:-3]}\n\n', False)
+    printOK(f'Example of use by {basename(file)[:-3]}\n', False)
 
 
 def printOK(string_output: str, show_date: str=True):
