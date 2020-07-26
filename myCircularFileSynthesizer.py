@@ -43,13 +43,13 @@ class Circular_File_Synthesizer(object):
 				self._skipped_positions = 0
 				self.makeover()
 
-	def _set_data(self, argFilesList):
-		if f"{type(argFilesList)}" in ["<class 'list'>", "<class 'tuple'>"]:
-			self._file_list = argFilesList[:]
+	def _set_data(self, files_list):
+		if f"{type(files_list)}" in ["<class 'list'>", "<class 'tuple'>"]:
+			self._file_list = files_list[:]
 			self._pos = 0
 
 			# Sizes of files
-			for fn in argFilesList:
+			for fn in files_list:
 				with open(fn, mode='rb') as file:
 					self._data_raw += file.read(path.getsize(fn))
 
@@ -57,24 +57,24 @@ class Circular_File_Synthesizer(object):
 
 		else:
 			print('Fatal error: A list or tuple of files must be provided')
-			print(f'{type(argFilesList)} <{argFilesList}>')
+			print(f'{type(files_list)} <{files_list}>')
 
 
-	def _XORize(self, argBytes: bytes):
-		"""Execute the XOR operation between argBytes and _previous_data if
+	def _XORize(self, byte_data: bytes):
+		"""Execute the XOR operation between byte_data and _previous_data if
 		_flag_make_XOR is active, otherwise return the original value
 		"""
 		if self._flag_make_XOR:
 			newBytes = []
 
-			for cByte in argBytes:
+			for cByte in byte_data:
 				self._previous_data ^= cByte
 				newBytes.append(self._previous_data)
 			
 			return bytes(newBytes)
 		
 		else:
-			return argBytes
+			return byte_data
 
 	@property
 	def data(self):
@@ -107,54 +107,55 @@ class Circular_File_Synthesizer(object):
 		if self._len_data == len(self._data_raw):
 			self._len_data = len(self._data_raw)
 
-	def jumpPositions(self, argJumpPositions: int=1):
+	def jumpPositions(self, jump_positions: int=1):
 		"""Skip the positions indicated in the parameter
 
 		If you skip a position, a negative number will indicate a setback
 		"""
-		if argJumpPositions < 0:
-			self._position_in_data += argJumpPositions
+		if jump_positions < 0:
+			self._position_in_data += jump_positions
 
 			while self._position_in_data < 0:
 				self._position_in_data += self._len_data
 
 		else:
-			self._position_in_data = (self._position_in_data + argJumpPositions) % self._len_data
+			self._position_in_data = (self._position_in_data + jump_positions) % self._len_data
 
-	def readInBytes(self, argSize: int=1):
+	def readInBytes(self, required_bytes: int = 1):
 		"""readInBytes
 
 		Read the indicated amount of data, if it is omitted it will only read one
 		byte, a negative number indicates the reading of previous data
 		"""
-		myBytesReturn = b''
+		delivery_bytes = b''
 		self._periodical_makeover()
 
-		if argSize < 0:
+		if required_bytes < 0:
 			# If negative, move the position pointer back
-			self.jumpPositions(argSize)
-			argSize *= -1
+			self.jumpPositions(required_bytes)
+			required_bytes *= -1
 
-		if self._position_in_data + argSize <= self._len_data:
+		if self._position_in_data + required_bytes <= self._len_data:
 			# The current reading does NOT reach the end of _data_raw
-			myBytesReturn = self._data_raw[self._position_in_data: self._position_in_data + argSize]
-			self._position_in_data += argSize
+			delivery_bytes = self._data_raw[self._position_in_data :
+                                  self._position_in_data + required_bytes]
+			self._position_in_data += required_bytes
 
 		else:
 			# The current reading reaches the end of _data_raw
-			myBytesReturn += self._data_raw[self._position_in_data:]
-			self._position_in_data += argSize - self._len_data
+			delivery_bytes += self._data_raw[self._position_in_data:]
+			self._position_in_data += required_bytes - self._len_data
 
 			# We read by parts
 			while self._position_in_data >= self._len_data:
-				myBytesReturn += self._data_raw[:]
+				delivery_bytes += self._data_raw[:]
 				self._position_in_data -= self._len_data
 
-			myBytesReturn += self._data_raw[0: self._position_in_data]
+			delivery_bytes += self._data_raw[0:self._position_in_data]
 
-		self._skipped_positions += argSize
+		self._skipped_positions += required_bytes
 
-		return self._XORize(myBytesReturn)
+		return self._XORize(delivery_bytes)
 
 	@property
 	def readInt(self):
@@ -171,9 +172,9 @@ class Circular_File_Synthesizer(object):
 		return self._seed.digest()
 
 	@seed.setter
-	def seed(self, argBytesSeed: bytes):
+	def seed(self, seed_bytes: bytes):
 		"""Fix or update the seed with the bytes it receives"""
-		self._seed.update(argBytesSeed)
+		self._seed.update(seed_bytes)
 		self._seed.update(self._data_raw)
 		self.jumpPositions(self._read_hash_like_integer() % len(self._data_raw))
 		
