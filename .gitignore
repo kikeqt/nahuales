@@ -131,3 +131,5 @@ test.py
 *.xml
 *.json
 .idea/nahuales.iml
+pyvenv.cfg
+/Scripts
