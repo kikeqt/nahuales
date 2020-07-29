@@ -1,8 +1,10 @@
-__version__ = "$Version: 0.1.0"
+__version__ = "$Version: 0.2.0"
 
 import colorama
 from os import chdir, system
 from os.path import basename
+from os.path import split as split_path
+from os.path import splitext
 from datetime import datetime
 import platform
 
@@ -22,6 +24,12 @@ def show_example_of_use(file):
     printOK(f'Example of use by {basename(file)[:-3]}\n', False)
 
 
+def split_path_file_extension(full_path):
+    path, file = split_path(full_path)
+    file, extension = splitext(file)
+    return path, file, extension
+    
+    
 def printOK(string_output: str, show_date: str=True):
 	timeStamp = f"{datetime.now().strftime('%H:%M:%S')} " if show_date else ""
 	print(colorama.Style.BRIGHT + colorama.Fore.GREEN + '{}{}'.format(timeStamp, string_output) +
