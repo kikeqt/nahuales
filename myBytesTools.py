@@ -1,4 +1,4 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 0.0.2"
 
 from math import ceil
 from struct import pack
@@ -272,9 +272,8 @@ def rol(argBytes: bytes, argShift: int=1):
 
 		return output
 
-	else:
-		print('Fatal error (rol): The argument must be a byte type')
-		exit()
+	print('Fatal error (rol): The argument must be a byte type')
+	exit()
 
 
 def rol4Bytes(argBytes: bytes, argShift: int = 1):
@@ -284,9 +283,8 @@ def rol4Bytes(argBytes: bytes, argShift: int = 1):
 	if isinstance(argBytes, bytes):
 		return argBytes[argShift:] + argBytes[:argShift]
 
-	else:
-		print('Fatal error (rol4Bytes): The argument must be a byte type')
-		exit()
+	print('Fatal error (rol4Bytes): The argument must be a byte type')
+	exit()
 
 
 def ror(argBytes: bytes, argShift: int=1):
@@ -312,34 +310,31 @@ def ror(argBytes: bytes, argShift: int=1):
 
 		return output
 
-	else:
-		print('Fatal error (ror): The argument must be a byte type')
-		exit()
+	print('Fatal error (ror): The argument must be a byte type')
+	exit()
 
 
-def ror4Bytes(argBytes: bytes, argShift: int = 1):
+def ror4Bytes(data: bytes, shift: int = 1):
 	"""Circular shift to the right"""
-	argShift %= len(argBytes)
+	shift %= len(data)
 
-	if isinstance(argBytes, bytes):
-		return argBytes[-argShift:] + argBytes[:-argShift]
+	if isinstance(data, bytes):
+		return data[-shift:] + data[:-shift]
 
-	else:
-		print('Fatal error (ror4Bytes): The argument must be a byte type')
-		exit()
+	print('Fatal error (ror4Bytes): The argument must be a byte type')
+	exit()
 
 
-def xor4bytes(argMsg: bytes, argMask: bytes):
+def xor4bytes(data: bytes, mask: bytes):
 	"""Does the XOR operation on two bytes"""
-	output = bytes(m ^ x for m, x in zip(argMsg, argMask[:len(argMsg)]))
+	output = bytes(m ^ x for m, x in zip(data, mask[:len(data)]))
 
-	if len(output) != len(argMask):
-		print('\tFatal error (xor4bytes): data was lost in the conversion {} vs {}, {}'.format(
-			len(output), len(argMsg), len(argMask)))
+	if isinstance(data, bytes):
 		return output
 
-	else:
-		return output
+	print(
+		f'\tFatal error (xor4bytes): The argument mut be a byte type')
+	exit()
 
 
 if __name__ == '__main__':
