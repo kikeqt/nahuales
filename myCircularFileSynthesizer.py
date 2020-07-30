@@ -1,4 +1,4 @@
-__version__ = "$Version: 1.0.0"
+__version__ = "$Version: 1.1.0"
 
 from Crypto.Cipher import AES
 from hashlib import sha512 as defaultHash
@@ -32,6 +32,8 @@ class Circular_File_Synthesizer(object):
 		self._flag_periodical_makeover = periodical_makeover
 
 		self._set_data(file_list[:])
+
+		self._seed.update(key)
 
 		if makeover:
 			self.makeover()
@@ -162,10 +164,16 @@ class Circular_File_Synthesizer(object):
 		"""Read 4 bytes of the circular file and return an integer"""
 		return bytes2int(self.readInBytes(4))
 
+	def readIntInterval(self, minimum_number: int=0, maximum_number: int=2**32-1):
+		return self.readInt % (maximum_number - minimum_number) + minimum_number 
+
 	@property
 	def readHashLikeInteger(self):
 		"""Same as readInt but first get the hash"""
 		return self._read_hash_like_integer()
+
+	def readHaskLikeIntegerInterval(self, minimum_number: int=0, maximum_number: int=2**32-1):
+		return self._read_hash_like_integer() % (maximum_number - minimum_number) + minimum_number 
 
 	@property
 	def seed(self):
@@ -194,19 +202,25 @@ if __name__ == '__main__':
 	print(f'cfs.readInBytes({jump_size}):    {cfs.readInBytes(jump_size)}')
 	print(f'cfs.jumpPositions(-{jump_size})'); cfs.jumpPositions(-jump_size)
 	print(f'cfs.readInBytes({jump_size}):    {cfs.readInBytes(jump_size)}')
-	print(f'cfs.readInBytes(-{jump_size}):   {cfs.readInBytes(-jump_size)}\n')
+	print(f'cfs.readInBytes(-{jump_size}):   {cfs.readInBytes(-jump_size)}')
+	print(f'cfs.readIntInterval(10,99): {cfs.readIntInterval(10,99)}')
+	print(f'cfs.readHaskLikeIntegerInterval(10,99): {cfs.readHaskLikeIntegerInterval(10,99)}\n')
  
 	cfs = Circular_File_Synthesizer(file_list, key, makeover=False, periodical_makeover=False)
 	print(f'cfs.readInBytes({jump_size}):    {cfs.readInBytes(jump_size)}')
 	print(f'cfs.jumpPositions(-{jump_size})'); cfs.jumpPositions(-jump_size)
 	print(f'cfs.readInBytes({jump_size}):    {cfs.readInBytes(jump_size)}')
-	print(f'cfs.readInBytes(-{jump_size}):   {cfs.readInBytes(-jump_size)}\n')
+	print(f'cfs.readInBytes(-{jump_size}):   {cfs.readInBytes(-jump_size)}')
+	print(f'cfs.readIntInterval(10,99): {cfs.readIntInterval(10,99)}')
+	print(f'cfs.readHaskLikeIntegerInterval(10,99): {cfs.readHaskLikeIntegerInterval(10,99)}\n')
  
 	cfs = Circular_File_Synthesizer(file_list, key, xorize=False, makeover=False, periodical_makeover=False)
 	print(f'cfs.readInBytes({jump_size}):    {cfs.readInBytes(jump_size)}')
 	print(f'cfs.jumpPositions(-{jump_size})'); cfs.jumpPositions(-jump_size)
 	print(f'cfs.readInBytes({jump_size}):    {cfs.readInBytes(jump_size)}')
-	print(f'cfs.readInBytes(-{jump_size}):   {cfs.readInBytes(-jump_size)}\n')
+	print(f'cfs.readInBytes(-{jump_size}):   {cfs.readInBytes(-jump_size)}')
+	print(f'cfs.readIntInterval(10,99): {cfs.readIntInterval(10,99)}')
+	print(f'cfs.readHaskLikeIntegerInterval(10,99): {cfs.readHaskLikeIntegerInterval(10,99)}\n')
 
 	print('Raw')
 	print(f'cfs.data[:{jump_size}]:          {cfs.data[:jump_size]}')
