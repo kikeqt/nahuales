@@ -1,4 +1,4 @@
-__version__ = "$Version: 1.0.0"
+__version__ = "$Version: 1.0.1"
 
 from math import ceil
 
@@ -22,8 +22,7 @@ def xcr4Bytes(
  
 	maximum_local_size = len(cfs.data) if len(cfs.data) > maximum_size else maximum_size
 	
-	size_in_bytes = cfs.readInt % maximum_local_size
-	size_in_bytes = size_in_bytes if size_in_bytes >= minimum_size else minimum_size
+	size_in_bytes = cfs.readInt % (maximum_local_size- minimum_size) + minimum_size
 	
 	total_rounds = ceil(required_bytes / size_in_bytes)
 	#### END Config ####
