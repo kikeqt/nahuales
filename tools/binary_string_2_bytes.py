@@ -5,9 +5,9 @@ from unittest import TestCase
 from .integer_2_bytes import Integer_2_bytes
 
 
-class Integer_2_binary_string(Integer_2_bytes):
+class Binary_string_2_bytes(Integer_2_bytes):
 
-    def integer_2_binary_string(self, data: str, max_number_bits: int = 0):
+    def binary_string_2_bytes(self, data: str, max_number_bits: int = 0):
         """Translate a string of ones and zeros to bytes"""
         myOutputBytes = b''
         data = data.strip()
@@ -31,11 +31,11 @@ class Integer_2_binary_string(Integer_2_bytes):
         return myOutputBytes
 
 
-class Integer_2_binary_string_Test(TestCase):
+class Binary_string_2_bytes_Test(TestCase):
     def setUp(self):
-        self.test_object = Integer_2_binary_string()
+        self.test_object = Binary_string_2_bytes()
 
-    def test_binary_2_string(self):
+    def test_binary_string_2_bytes(self):
         test_values = (
             ('00000000', b'\x00'),
             ('00000001', b'\x01'),
@@ -298,5 +298,5 @@ class Integer_2_binary_string_Test(TestCase):
         for bytes_string, byte_value in test_values:
             self.assertEqual(
                 byte_value,
-                self.test_object.integer_2_binary_string(bytes_string)
+                self.test_object.binary_string_2_bytes(bytes_string)
             )
