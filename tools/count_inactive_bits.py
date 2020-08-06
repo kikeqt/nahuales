@@ -37,5 +37,5 @@ class Count_inactive_bits_Test(TestCase):
         test_value = b'@ABC'
         self.assertEqual(
             24,
-            self.test_object.count_unactive_bits(test_value)
+            self.test_object.count_inactive_bits(test_value)
         )
