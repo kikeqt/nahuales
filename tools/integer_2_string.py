@@ -3,9 +3,9 @@ __version__ = "$Version: 2.0.0"
 from unittest import TestCase
 
 
-class Binary_2_string(object):
+class Integer_2_string(object):
 
-    def binary_2_string(self, data: int, width: int = 0):
+    def integer_2_string(self, data: int, width: int = 0):
         """Convert a number to binary representation"""
         if width == 0:
             width = (data.bit_length() + 7) // 8 * 8
@@ -14,9 +14,9 @@ class Binary_2_string(object):
         return fmt.format(data)
 
 
-class Binary_2_string_Test(TestCase):
+class Integer_2_string_Test(TestCase):
     def setUp(self):
-        self.test_object = Binary_2_string()
+        self.test_object = Integer_2_string()
 
     def test_binary_2_string(self):
         test_values = (
@@ -281,5 +281,5 @@ class Binary_2_string_Test(TestCase):
         for item in range(len(test_values)):
             self.assertEqual(
                 test_values[item],
-                self.test_object.binary_2_string(item, 8)
+                self.test_object.integer_2_string(item, 8)
             )
