@@ -21,11 +21,9 @@ class Bytes_2_bits(Bytes_2_bits_iterative):
 class Bytes_2_bits_Test(TestCase):
 
     def setUp(self):
-        self.test_object = Get_byte()
+        self.test_object = Bytes_2_bits()
 
     def test_count_active_bits(self):
         test_value = b'@ABC'
-        self.assertEqual(b'@', self.test_object.get_byte(b'@ABC', 0))
-        self.assertEqual(b'A', self.test_object.get_byte(b'@ABC', 1))
-        self.assertEqual(b'B', self.test_object.get_byte(b'@ABC', 2))
-        self.assertEqual(b'C', self.test_object.get_byte(b'@ABC', 3))
+        validation_value = [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1]
+        self.assertEqual(validation_value, self.test_object.bytes_2_bits(test_value))
