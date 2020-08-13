@@ -1,4 +1,4 @@
-__version__ = "$Version: 1.0.0"
+__version__ = "$Version: 1.0.1"
 
 from .files import Files
 from tools import Integer_2_bytes
@@ -8,7 +8,7 @@ class Test_Files(object):
     __current_file = 0
     __test_files = []
     __truncated_path = "benchmark/truncated_folder/"
-    __my_test_files = [
+    __my_test_files = (
         # PNG files
         {'file_location': 'benchmark/data/Logo_Kike.png', 'category': 'png', },
         {'file_location': 'benchmark/data/Glider.png', 'category': 'png', },
@@ -56,7 +56,7 @@ class Test_Files(object):
             'url_file': 'https://csrc.nist.gov/CSRC/media/Projects/Random-Bit-Generation/documents/sts-2_1_2.zip'},
         {'file_location': 'benchmark/data/CRYPTOPP_5_6_5.zip', 'category': 'Zip file',
             'url_file': 'https://github.com/weidai11/cryptopp/archive/CRYPTOPP_5_6_5.zip'},
-    ]
+    )
 
     def __init__(self):
         for item in self.__my_test_files:
