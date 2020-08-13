@@ -1,6 +1,7 @@
-__version__ = "$Version: 2.0.0"
+__version__ = "$Version: 2.0.1"
 
 from unittest import TestCase
+
 
 class XOR_4_bytes(object):
     def xor_4_bytes(self, data: bytes, mask: bytes):
@@ -13,10 +14,10 @@ class XOR_4_bytes(object):
         print(
             f'\tFatal error (xor4bytes): The argument mut be a byte type')
         exit()
-        
-        
+
+
 class XOR_4_bytes_Test(TestCase):
-    
+
     def setUp(self):
         self.test_object = XOR_4_bytes()
 
@@ -40,7 +41,7 @@ class XOR_4_bytes_Test(TestCase):
 
         for item in test_values:
             xor_result = self.test_object.xor_4_bytes(test_value, item)
-            
+
             self.assertEqual(
                 test_value,
                 self.test_object.xor_4_bytes(item, xor_result)
