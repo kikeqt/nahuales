@@ -133,3 +133,16 @@ test.py
 .idea/nahuales.iml
 pyvenv.cfg
 /Scripts
+benchmark/data/Analysis2005.pdf
+benchmark/data/CRYPTOPP_5_6_5.zip
+benchmark/data/el_quijote.txt
+benchmark/data/Fast_NIST_STS_v6.0.1.zip
+benchmark/data/la_Odisea_by_homer.txt
+benchmark/data/librotmed.pdf
+benchmark/data/nistspecialpublication800-22r1a.pdf
+benchmark/data/sts-2_1_2.zip
+benchmark/data/the_Iliad_of_Homer.txt
+benchmark/truncated_folder/
+benchmark/data/la_Odisea.txt
+benchmark/data/nist_sp800-22r1a.pdf
+benchmark/data/the_Iliad.txt
