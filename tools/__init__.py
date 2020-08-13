@@ -29,3 +29,4 @@ colorama.init(autoreset=True)
 from .clear_console import clear_console
 from .print_color import print_color
 from .show_example_of_use import show_example_of_use
+from .split_path_file_extension import split_path_file_extension
