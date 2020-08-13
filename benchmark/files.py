@@ -1,16 +1,13 @@
 __version__ = "$Version: 0.0.1"
 
-from tools import split_path_file_extension
-
 from os import mkdir
 from os.path import exists as exists_path
 from os.path import getsize
 from os.path import split as split_path
 from os.path import splitext
 import requests
-from sys import path as sys_path
 
-sys_path.append('..')
+from tools import split_path_file_extension
 
 
 class Files(object):
@@ -59,7 +56,7 @@ class Files(object):
     @property
     def get_full_file_name(self):
         return self.__full_path
-    
+
     @property
     def get_category(self):
         return self.__category
