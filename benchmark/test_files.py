@@ -1,4 +1,4 @@
-__version__ = "$Version: 1.0.2"
+__version__ = "$Version: 1.0.3"
 
 import json
 
@@ -21,7 +21,7 @@ class Test_Files(object):
         self.__truncate_files()
 
     def __load_from_JSON(self):
-        with open('benchmark/config.json', 'r') as file:
+        with open('benchmark/config_benchmark.json', 'r') as file:
             self.__my_test_files = file.read()
 
         self.__my_test_files = json.loads(self.__my_test_files)
