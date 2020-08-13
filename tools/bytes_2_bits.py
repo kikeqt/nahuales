@@ -1,4 +1,4 @@
-__version__ = "$Version: 2.0.0"
+__version__ = "$Version: 2.0.1"
 
 from unittest import TestCase
 
@@ -25,5 +25,7 @@ class Bytes_2_bits_Test(TestCase):
 
     def test_count_active_bits(self):
         test_value = b'@ABC'
-        validation_value = [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1]
-        self.assertEqual(validation_value, self.test_object.bytes_2_bits(test_value))
+        validation_value = [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+                            0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1]
+        self.assertEqual(validation_value,
+                         self.test_object.bytes_2_bits(test_value))
