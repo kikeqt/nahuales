@@ -1,4 +1,4 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 0.0.2"
 
 from os.path import basename
 
@@ -8,5 +8,6 @@ from .print_color import print_color
 
 def show_example_of_use(file):
     clear_console()
-    print_color(f'Example of use by {basename(file)[:-3]}\n', type= 'ok', show_date= False)
-
+    print_color(
+        f'Example of use by {basename(file)[:-3]}\n',
+        type='ok', show_date=False)
