@@ -1,8 +1,7 @@
-__version__ = "$Version: 2.0.0"
+__version__ = "$Version: 2.0.1"
 
 
 class Bytes_2_bits_iterative(object):
-
     def bytes_2_bits_iterative(
         self,
         bytes_parameter: bytes,
