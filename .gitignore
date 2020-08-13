@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 test.py
 *.xml
-*.json
+#*.json
 .idea/nahuales.iml
 pyvenv.cfg
 /Scripts
@@ -148,3 +148,4 @@ benchmark/data/nist_sp800-22r1a.pdf
 benchmark/data/the_Iliad.txt
 benchmark/data/PNG_demo.png
 benchmark/Fast_NIST_STS_v6.0.1
+.vscode/settings.json
