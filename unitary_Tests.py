@@ -25,6 +25,7 @@ from tools.rotate_on_left_4_bytes_Test import Rotate_on_left_4_bytes_Test
 
 from tools.rotate_on_right_4_bits_Test import Rotate_on_right_4_bits_Test
 from tools.rotate_on_right_4_bytes_Test import Rotate_on_right_4_bytes_Test
+from tools.sync_files_Test import Sync_files_Test
 from tools.xor_4_bytes_Test import XOR_4_bytes_Test
 
 unittest.main()
