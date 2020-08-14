@@ -5,6 +5,7 @@
             "without": "Fast_NIST_STS_v6.0.1/Binaries_for_Windows/x64_without_FFTW/"
         },
 		"bin": "NIST.exe",
+		"dll": "libfftw3-3.dll",
         "file_location": "benchmark/data/Fast_NIST_STS_v6.0.1.zip",
         "url_file": "https://github.com/sysox/NIST-STS-optimised/files/4052762/Fast_NIST_STS_v6.0.1.zip"
     },
@@ -14,6 +15,7 @@
             "without": "STS_v5.0.2/STS_v5.0.2/Binaries_for_Windows/x64_without_FFTW/"
         },
 		"bin": "NIST.exe",
+		"dll": "libfftw3-3.dll",
         "file_location": "benchmark/data/Fast_NIST_STS_v5.0.2.zip",
         "url_file": "https://github.com/sysox/NIST-STS-optimised/releases/download/v5/Fast_NIST_STS_v5.0.2.zip"
     }
