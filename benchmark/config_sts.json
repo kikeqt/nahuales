@@ -1,25 +1,19 @@
 {
     "v6.0.1": {
         "fftw": {
-            "with": "x64_without_FFTW",
-            "without": "x64_without_FFTW"
+            "with": "Fast_NIST_STS_v6.0.1/Binaries_for_Windows/x64_with_FFTW/",
+            "without": "Fast_NIST_STS_v6.0.1/Binaries_for_Windows/x64_without_FFTW/"
         },
+		"bin": "NIST.exe",
         "file_location": "benchmark/data/Fast_NIST_STS_v6.0.1.zip",
         "url_file": "https://github.com/sysox/NIST-STS-optimised/files/4052762/Fast_NIST_STS_v6.0.1.zip"
     },
-    "v6.0": {
-        "fftw": {
-            "with": "x64_without_FFTW",
-            "without": "x64_without_FFTW"
-        },
-        "file_location": "benchmark/data/Fast_NIST_STS_v6.0.zip",
-        "url_file": "https://github.com/sysox/NIST-STS-optimised/releases/download/v6/Fast_NIST_STS_v6.0.zip"
-    },
     "v5.0": {
         "fftw": {
-            "with": "x64_without_FFTW",
-            "without": "x64_without_FFTW"
+            "with": "STS_v5.0.2/STS_v5.0.2/Binaries_for_Windows/x64_with_FFTW/",
+            "without": "STS_v5.0.2/STS_v5.0.2/Binaries_for_Windows/x64_without_FFTW/"
         },
+		"bin": "NIST.exe",
         "file_location": "benchmark/data/Fast_NIST_STS_v5.0.2.zip",
         "url_file": "https://github.com/sysox/NIST-STS-optimised/releases/download/v5/Fast_NIST_STS_v5.0.2.zip"
     }
