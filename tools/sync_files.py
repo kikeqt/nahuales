@@ -8,6 +8,22 @@ from .compare_files import compare_files
 
 
 def sync_files(source_file: str, target_file: str, show_messages: bool = False):
+    """sync_files(source_file, target_file, show_messages):
+    
+    Synchronizes a file from two different folders
+    
+    Parameters
+    ----------
+    source_file: str
+    target_file: str
+    show_messages: bool = False
+    
+    Returns
+    -------
+    str
+        One of the next states: 'remove target', 'there is none', 'replace',
+        'copy' or 'are equal'
+    """
     if not exists_path(source_file):
         if exists_path(target_file):
             if show_messages:
