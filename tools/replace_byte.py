@@ -1,6 +1,4 @@
-__version__ = "$Version: 2.0.0"
-
-from unittest import TestCase
+__version__ = "$Version: 2.0.1"
 
 
 class Replace_byte(object):
@@ -29,19 +27,3 @@ class Replace_byte(object):
                 len(output), len(bytes_parameter), position))
 
         return output
-
-
-class Replace_byte_Test(TestCase):
-    def setUp(self):
-        self.test_object = Replace_byte()
-
-    def test_count_active_bits(self):
-        test_value = b'@ABC'
-        self.assertEqual(
-            b'XABC', self.test_object.replace_byte(b'@ABC', b'X', 0))
-        self.assertEqual(
-            b'@XBC', self.test_object.replace_byte(b'@ABC', b'X', 1))
-        self.assertEqual(
-            b'@AXC', self.test_object.replace_byte(b'@ABC', b'X', 2))
-        self.assertEqual(
-            b'@ABX', self.test_object.replace_byte(b'@ABC', b'X', 3))

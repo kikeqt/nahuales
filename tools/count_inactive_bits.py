@@ -1,6 +1,4 @@
-__version__ = "$Version: 1.0.0"
-
-from unittest import TestCase
+__version__ = "$Version: 0.0.1"
 
 from tools.show_file_name import show_file_name
 from .count_active_bits import Count_active_bits
@@ -27,15 +25,3 @@ class Count_inactive_bits(Count_active_bits):
             max_number_bits = len(bytes_parameter) * 8
 
         return max_number_bits - self.count_active_bits(bytes_parameter, max_number_bits)
-
-
-class Count_inactive_bits_Test(TestCase):
-    def setUp(self):
-        self.test_object = Count_inactive_bits()
-
-    def test_count_inactive_bits(self):
-        test_value = b'@ABC'
-        self.assertEqual(
-            24,
-            self.test_object.count_inactive_bits(test_value)
-        )
