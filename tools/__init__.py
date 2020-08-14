@@ -27,7 +27,8 @@ colorama.init(autoreset=True)
 
 # Many things
 from .clear_console import clear_console
+from .compare_files import compare_files
 from .print_color import print_color
 from .show_example_of_use import show_example_of_use
 from .split_path_file_extension import split_path_file_extension
-from .compare_files import compare_files
+from .sync_files import sync_files
