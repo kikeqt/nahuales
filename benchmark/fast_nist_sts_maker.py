@@ -1,4 +1,4 @@
-_version_ = "$Version: 0.0.1"
+_version_ = "$Version: 0.0.2"
 
 import json
 from os.path import exists
@@ -16,7 +16,7 @@ class Fast_NIST_STS_Maker(object):
     _environment_location = 'benchmark/sts/'
     _config = {}
 
-    def __init__(self, version_sts: str = "v6.0.1"):
+    def __init__(self, version_sts: str):
         self._version_sts = version_sts
 
         self._load_from_JSON()
