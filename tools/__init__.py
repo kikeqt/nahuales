@@ -1,3 +1,5 @@
+__version__ = "$Version: 0.0.2"
+
 # For bytes
 from .active_bits import Active_bits
 from .active_bits_iterable import Active_bits_iterable
