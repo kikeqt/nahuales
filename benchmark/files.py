@@ -1,7 +1,7 @@
 __version__ = "$Version: 0.0.1"
 
 from os import mkdir
-from os.path import exists as exists_path
+from os.path import exists
 from os.path import getsize
 from os.path import split as split_path
 from os.path import splitext
@@ -27,7 +27,7 @@ class Files(object):
         self.__full_path = file_location
         self.__category = category
 
-        if not exists_path(file_location):
+        if not exists(file_location):
             print("Missing file: I need download the file " +
                   "{file_name}{extension}")
             resource = requests.get(url_file)
@@ -75,7 +75,7 @@ class Files(object):
 
     @truncated_path.setter
     def truncated_path(self, path: str):
-        if not exists_path(path):
+        if not exists(path):
             mkdir(path)
 
         self.__truncated_path = path
@@ -85,7 +85,7 @@ class Files(object):
         return f'{self.__truncated_path}{self.get_file_name_with_extension}'
 
     def generate_truncated_file(self, maximun_size: int = 125000):
-        if not exists_path(self.get_truncated_file):
+        if not exists(self.get_truncated_file):
             content = b''
 
             with open(self.__full_path, 'rb') as file:
