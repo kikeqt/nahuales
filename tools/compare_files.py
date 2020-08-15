@@ -1,4 +1,4 @@
-__version__ = "$Version: 0.1.0"
+__version__ = "$Version: 0.2.0"
 
 from Crypto.Hash import SHA512
 from os.path import exists
@@ -15,14 +15,14 @@ def compare_files(original_file: str, compared_file: str, show_messages: bool = 
 
         if size_origin == size_target:
             if size_origin > 0:
-                with open(original_file, 'r') as file:
+                with open(original_file, 'rb') as file:
                     content_file = file.read()
 
-                with open(compared_file, 'r') as file:
+                with open(compared_file, 'rb') as file:
                     content_compared_file = file.read()
 
-                hash_file = SHA512.new(content_file.encode())
-                hash_mirror = SHA512.new(content_compared_file.encode())
+                hash_file = SHA512.new(content_file)
+                hash_mirror = SHA512.new(content_compared_file)
 
                 return hash_file.digest() == hash_mirror.digest()
             else:
