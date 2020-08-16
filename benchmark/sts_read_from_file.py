@@ -1,10 +1,12 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 0.0.2"
 
 import errno
 from os import strerror
 from os.path import exists
 import re
-from typing import Union, Tuple, List
+from typing import Union
+from typing import Tuple
+from typing import List
 
 
 class STS_read_from_file(object):
