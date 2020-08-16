@@ -1,4 +1,4 @@
-__version__ = "$Version: 0.0.2"
+__version__ = "$Version: 0.0.3"
 
 import errno
 from os import strerror
@@ -21,7 +21,6 @@ class STS_read_from_file(object):
         Reads each line after the marked line to find the last element in the 
         column, as long as there is data
     """
-    _file_name = ''
 
     def __extract_p_value(self, line):
         assignment: Union[str, None]
