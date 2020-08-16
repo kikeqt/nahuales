@@ -1,4 +1,4 @@
-__version__ = "$Version: 1.0.0"
+__version__ = "$Version: 1.1.0"
 
 from typing import Union
 
@@ -10,22 +10,26 @@ class STS_Value(object):
     ----------
     p_value : float
         P-Value to evaluation
-        
+
     assignment : str
         SUCCESS or FAILURE.  None If not exist values yet
-    
+
     category : int
         Value for category between 1 and 10
-        
+
     Methods
     -------
     reset()
         Reset all values from the object
     """
-    __na = True
-    __p_value = 0.0
-    __assignment = False
-    __category = 0
+    __na: bool
+    __p_value: Union[float, None]
+    __assignment: Union[str, None]
+    __category = Union[int, None]
+    __Minimum_to_pass: float = 0.1
+
+    def __init__(self):
+        self.reset()
 
     def reset(self):
         """reset() -> None
@@ -55,6 +59,25 @@ class STS_Value(object):
             return None
 
         else:
+            # BEGIN Criteria check
+            verify_assignment: str
+
+            if self.__p_value > self.__Minimum_to_pass:
+                verify_assignment = True
+
+            else:
+                verify_assignment = False
+
+            if self.__assignment == None:
+                self.__assignment = verify_assignment
+
+            else:
+                if self.__assignment == verify_assignment:
+                    raise ValueError("The value does not correspond to the " +
+                                     f"criterion, {self.__p_value} should be " +
+                                     ("SUCCESS" if verify_assignment else "FAILURE"))
+            # END Criteria check
+
             if self.__assignment:
                 return 'SUCCESS'
 
@@ -70,6 +93,13 @@ class STS_Value(object):
 
         elif assignment == 'FAILURE':
             self.__assignment = False
+
+        elif assignment == None:
+            if self.__p_value > self.__Minimum_to_pass:
+                verify_assignment = True
+
+            else:
+                verify_assignment = False
 
         else:
             raise ValueError("The value must be SUCCESS or FAILURE")
