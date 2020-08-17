@@ -1,4 +1,4 @@
-__version__ = "$Version: 1.1.0"
+__version__ = "$Version: 1.2.0"
 
 from typing import Union
 
@@ -21,12 +21,15 @@ class STS_Value(object):
     -------
     reset()
         Reset all values from the object
+
+    set_values(p_value: float, assignment: str, category: Union[int, str])
+        It set all the attributes together: p_value, assignment and category.
     """
     __na: bool
     __p_value: Union[float, None]
     __assignment: Union[str, None]
     __category = Union[int, None]
-    __Minimum_to_pass: float = 0.1
+    __minimum_to_pass: float = 0.1
 
     def __init__(self):
         self.reset()
@@ -62,7 +65,7 @@ class STS_Value(object):
             # BEGIN Criteria check
             verify_assignment: str
 
-            if self.__p_value > self.__Minimum_to_pass:
+            if self.__p_value > self.__minimum_to_pass:
                 verify_assignment = True
 
             else:
@@ -95,7 +98,7 @@ class STS_Value(object):
             self.__assignment = False
 
         elif assignment == None:
-            if self.__p_value > self.__Minimum_to_pass:
+            if self.__p_value > self.__minimum_to_pass:
                 verify_assignment = True
 
             else:
@@ -128,3 +131,24 @@ class STS_Value(object):
         else:
             raise ValueError(
                 "The value must be integer or string, by example with 'C10'")
+
+    def set_values(self, p_value: float, assignment: str, category: Union[int, str]):
+        """set_values(self, p_value: float, assignment: str, category: Union[int, str]) -> None
+
+        It set all the attributes together: p_value, assignment and category.
+
+        PARAMETERS
+        ----------
+        p_value : float
+            P-Value to evaluation
+
+        assignment : str
+            SUCCESS or FAILURE.  None If not exist values yet
+
+        category : int
+            Value for category between 1 and 10
+
+        """
+        self.p_value = p_value
+        self.assignment = assignment
+        self.category = category
