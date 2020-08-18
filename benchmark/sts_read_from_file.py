@@ -1,4 +1,4 @@
-__version__ = "$Version: 0.0.3"
+__version__ = "$Version: 0.0.4"
 
 import errno
 from os import strerror
@@ -121,7 +121,7 @@ class STS_read_from_file(object):
                 _ = [file_sts.readline() for item in range(number_line)]
                 while line := file_sts.readline():
                     results_outputs.append(self.__extract_p_value(line))
-                    
+
         else:
             raise FileNotFoundError(
                 errno.ENOENT, strerror(errno.ENOENT), file_name)
