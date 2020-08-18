@@ -1,6 +1,5 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 0.0.2"
 
-from tools.show_file_name import show_file_name
 from .count_active_bits import Count_active_bits
 
 
