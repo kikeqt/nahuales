@@ -151,3 +151,4 @@ benchmark/Fast_NIST_STS_v6.0.1
 .vscode/settings.json
 benchmark/sts/
 doc/
+benchmark/Statistical_Test_Suite-results.sqbpro
