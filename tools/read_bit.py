@@ -1,6 +1,4 @@
-__version__ = "$Version: 2.0.1"
-
-from tools.show_file_name import show_file_name
+__version__ = "$Version: 2.0.2"
 
 
 class Read_bit(object):
