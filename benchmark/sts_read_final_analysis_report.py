@@ -1,9 +1,11 @@
-__version__ = "$Version: 0.0.2"
+__version__ = "$Version: 1.0.0"
 
 from os.path import exists
 
+from .sts_read_from_file import STS_read_from_file
 
-class STS_read_final_analysis_report(object):
+
+class STS_read_final_analysis_report(STS_read_from_file):
     """Read the STS final analysis report
 
     Methods
@@ -12,7 +14,7 @@ class STS_read_final_analysis_report(object):
         Get the results of the final analisys report.
     """
 
-    def read_from_file(self, dict_results: dict, file_name: str) -> dict:
+    def read_from_final_report_file(self, dict_results: dict, file_name: str) -> dict:
         """read_from_file(file_name: str) -> dict
 
         Get the results of the final analisys report.
