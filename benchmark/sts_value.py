@@ -1,4 +1,4 @@
-__version__ = "$Version: 1.2.0"
+__version__ = "$Version: 1.3.0"
 
 from typing import Union
 
@@ -33,6 +33,13 @@ class STS_Value(object):
 
     def __init__(self):
         self.reset()
+
+    def __str__(self):
+        if self.__na:
+            return 'There is not record'
+
+        else:
+            return f'{self.p_value}, {self.assignment} {self.category}'
 
     def reset(self):
         """reset() -> None
