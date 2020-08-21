@@ -1,4 +1,4 @@
-__version__ = "$Version: 1.3.0"
+__version__ = "$Version: 1.4.0"
 
 from typing import Union
 
@@ -25,102 +25,73 @@ class STS_Value(object):
     set_values(p_value: float, assignment: str, category: Union[int, str])
         It set all the attributes together: p_value, assignment and category.
     """
-    __na: bool
     __p_value: Union[float, None]
-    __assignment: Union[str, None]
+    __assignment: Union[bool, None]
     __category = Union[int, None]
-    __minimum_to_pass: float = 0.1
+    __minimum_to_pass: float = 0.01
+    __test_name: str
 
-    def __init__(self):
+    def __init__(self, test_name: str):
+        self.__test_name = test_name
         self.reset()
 
     def __str__(self):
-        if self.__na:
+        if self.__p_value == None:
             return 'There is not record'
 
         else:
-            return f'{self.p_value}, {self.assignment} {self.category}'
+            return f'[{self.p_value}, "{self.assignment}", {self.category}],'
 
     def reset(self):
         """reset() -> None
         Reset all values from the object
         """
-        self.__na = True
         self.__p_value = None
         self.__assignment = None
         self.__category = None
 
     @property
     def p_value(self):
-        if self.__na:
-            return None
-
-        else:
-            return self.__p_value
+        return self.__p_value
 
     @p_value.setter
     def p_value(self, p_value: float):
-        self.__na = False
         self.__p_value = p_value
+
+        self.__assignment = True if self.__p_value >= self.__minimum_to_pass else False
 
     @property
     def assignment(self):
-        if self.__na:
-            return None
-
-        else:
-            # BEGIN Criteria check
-            verify_assignment: str
-
-            if self.__p_value > self.__minimum_to_pass:
-                verify_assignment = True
-
-            else:
-                verify_assignment = False
-
-            if self.__assignment == None:
-                self.__assignment = verify_assignment
-
-            else:
-                if self.__assignment == verify_assignment:
-                    raise ValueError("The value does not correspond to the " +
-                                     f"criterion, {self.__p_value} should be " +
-                                     ("SUCCESS" if verify_assignment else "FAILURE"))
-            # END Criteria check
-
-            if self.__assignment:
-                return 'SUCCESS'
-
-            else:
-                return 'FAILURE'
+        return 'SUCCESS' if self.__assignment else 'FAILURE'
 
     @assignment.setter
     def assignment(self, assignment: str):
-        assignment = assignment.upper()
+        bool_assignment: bool
 
-        if assignment == 'SUCCESS':
-            self.__assignment = True
+        if self.__p_value == None:
+            raise ValueError("p_value must be set first")
 
-        elif assignment == 'FAILURE':
-            self.__assignment = False
+        if assignment != None:
+            assignment = assignment.upper()
 
-        elif assignment == None:
-            if self.__p_value > self.__minimum_to_pass:
-                verify_assignment = True
+            if assignment in ['SUCCESS', 'FAILURE']:
+                bool_assignment = True if assignment == 'SUCCESS' else False
+
+                # BEGIN Criteria check
+                if bool_assignment != self.__assignment:
+                    print(self.__test_name, self.__assignment)
+                    raise ValueError("The value does not correspond to the " +
+                                     f"criterion, {self.__p_value} should be " +
+                                     ("SUCCESS" if verify_assignment else "FAILURE"))
+                # END Criteria check
 
             else:
-                verify_assignment = False
-
-        else:
-            raise ValueError("The value must be SUCCESS or FAILURE")
+                raise ValueError("The value must be SUCCESS or FAILURE")
 
     @property
     def category(self):
-        if self.__na:
-            return None
-
-        else:
-            return self.__category
+        # TODO Investigate what the criteria is for assigning category
+        return self.__category
 
     @category.setter
     def category(self, category: Union[int, str]):
