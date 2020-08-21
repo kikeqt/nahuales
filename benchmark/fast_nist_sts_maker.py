@@ -1,8 +1,10 @@
-_version_ = "$Version: 0.0.2"
+_version_ = "$Version: 0.0.3"
 
 import json
 from os.path import exists
 from shutil import copytree
+from typing import Dict
+from typing import Union
 import zipfile
 
 from .files import Files
@@ -14,7 +16,7 @@ class Fast_NIST_STS_Maker(object):
     _base_path = 'benchmark/'
     _environment_unzip = ''
     _environment_location = 'benchmark/sts/'
-    _config = {}
+    _config: Dict[str, Dict[str, Union[str, Dict[str,str]]]] = {}
 
     def __init__(self, version_sts: str):
         self._version_sts = version_sts
