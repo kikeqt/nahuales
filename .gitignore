@@ -153,3 +153,4 @@ benchmark/sts/
 doc/
 benchmark/Statistical_Test_Suite-results.sqbpro
 benchmark/test.db
+benchmark/Statistical_Test_Suite-results_template.db
