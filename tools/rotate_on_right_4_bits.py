@@ -1,6 +1,5 @@
 __version__ = "$Version: 3.0.0"
 
-from tools.bytes_2_binary_string import Bytes2BinaryString
 from tools.bytes_2_integer import Bytes2Integer
 from tools.integer_2_bytes import Integer2Bytes
 
@@ -9,7 +8,7 @@ class RotateOnRight4Bits(Bytes2Integer, Integer2Bytes):
 
     def rotate_on_right_4_bits(self, bytes_parameter: bytes, shift: int = 1):
         """Circular shift to the right"""
-        block = 0
+        block: int
         size_block = len(bytes_parameter)
         shift %= size_block * 8
         complement_of_shift = size_block * 8 - shift
@@ -32,5 +31,5 @@ class RotateOnRight4Bits(Bytes2Integer, Integer2Bytes):
 
             return output
 
-        print('Fatal error (rol): The argument must be a byte type')
-        exit()
+        else:
+            raise ValueError('Fatal error (rol): The argument must be a byte type')
