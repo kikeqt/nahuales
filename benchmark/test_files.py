@@ -1,9 +1,9 @@
-__version__ = "$Version: 1.0.3"
+__version__ = "$Version: 1.0.4"
 
 import json
 
 from .files import Files
-from tools import Integer_2_bytes
+from tools import Integer2Bytes
 
 
 class Test_Files(object):
@@ -37,7 +37,7 @@ class Test_Files(object):
             yield item
 
     def get_keys_iterative(self):
-        integer_2_bytes = Integer_2_bytes()
+        integer_2_bytes = Integer2Bytes()
 
         for key in range(256):
             yield integer_2_bytes.integer_2_bytes(key)
