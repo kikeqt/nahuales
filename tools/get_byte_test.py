@@ -1,13 +1,13 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 1.0.0"
 
 from unittest import TestCase
 
-from .get_byte import Get_byte
+from .get_byte import GetByte
 
 
-class Get_byte_Test(TestCase):
+class GetByteTest(TestCase):
     def setUp(self):
-        self.test_object = Get_byte()
+        self.test_object = GetByte()
 
     def test_count_active_bits(self):
         test_value = b'@ABC'

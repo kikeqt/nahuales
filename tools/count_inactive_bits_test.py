@@ -1,13 +1,13 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 1.0.0"
 
 from unittest import TestCase
 
-from .count_inactive_bits import Count_inactive_bits
+from .count_inactive_bits import CountInactiveBits
 
 
-class Count_inactive_bits_Test(TestCase):
+class CountInactiveBitsTest(TestCase):
     def setUp(self):
-        self.test_object = Count_inactive_bits()
+        self.test_object = CountInactiveBits()
 
     def test_count_inactive_bits(self):
         test_value = b'@ABC'

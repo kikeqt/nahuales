@@ -1,17 +1,16 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 1.0.0"
 
 from unittest import TestCase
 
-from .xor_4_bytes import XOR_4_bytes
+from .xor_4_bytes import XOR4Bytes
 
 
-class XOR_4_bytes_Test(TestCase):
+class XOR4BytesTest(TestCase):
     
     def setUp(self):
-        self.test_object = XOR_4_bytes()
+        self.test_object = XOR4Bytes()
 
     def test_rotate_on_left_4_bits(self):
-        test_value = b'abcdefghij'
         test_value = b'1234567890'
 
         test_values = (

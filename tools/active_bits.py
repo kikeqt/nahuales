@@ -1,9 +1,9 @@
-__version__ = "$Version: 2.0.1"
+__version__ = "$Version: 3.0.0"
 
-from .active_bits_iterable import Active_bits_iterable
+from .active_bits_iterable import ActiveBitsIterable
 
 
-class Active_bits(Active_bits_iterable):
+class ActiveBits(ActiveBitsIterable):
 
     def active_bits(self, bytes_parameter: bytes):
         """Vector with the positions of active bits in notation little endian
@@ -17,7 +17,7 @@ class Active_bits(Active_bits_iterable):
 
         else:
             print('Fatal error (active_bits): The argument must be a byte type not {}'.format(
-                type(argBytes)))
+                type(bytes_parameter)))
             exit()
 
         if block == 0:

@@ -1,9 +1,9 @@
-__version__ = "$Version: 2.0.2"
+__version__ = "$Version: 3.0.0"
 
-from .bytes_2_bits_iterative import Bytes_2_bits_iterative
+from .bytes_2_bits_iterative import Bytes2BitsIterative
 
 
-class Bytes_2_binary_string(Bytes_2_bits_iterative):
+class Bytes2BinaryString(Bytes2BitsIterative):
     def bytes_2_binary_string(
         self,
         bytes_parameter: bytes,

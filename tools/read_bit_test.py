@@ -1,13 +1,13 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 1.0.0"
 
 from unittest import TestCase
 
-from .read_bit import Read_bit
+from .read_bit import ReadBit
 
 
-class Read_bit_Test(TestCase):
+class ReadBitTest(TestCase):
     def setUp(self):
-        self.read_bit = Read_bit()
+        self.read_bit = ReadBit()
 
     def test_read_bit(self):
         test_value = b'@ABC'

@@ -1,11 +1,11 @@
-__version__ = "$Version: 2.0.1"
+__version__ = "$Version: 3.0.0"
 
 from math import ceil
 
 from .constants import Constants
 
 
-class Integer_2_bytes(Constants):
+class Integer2Bytes(Constants):
 
     def integer_2_bytes(self, integer_parameter: int, trim: int = 0):
         """Translate an integer to data type bytes format"""

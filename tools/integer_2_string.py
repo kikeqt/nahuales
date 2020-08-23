@@ -1,7 +1,7 @@
-__version__ = "$Version: 2.0.1"
+__version__ = "$Version: 3.0.0"
 
 
-class Integer_2_string(object):
+class Integer2String(object):
 
     def integer_2_string(self, data: int, width: int = 0):
         """Convert a number to binary representation"""

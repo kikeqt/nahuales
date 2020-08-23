@@ -1,14 +1,14 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 1.0.0"
 
 from unittest import TestCase
 
-from .bytes_2_binary_string import Bytes_2_binary_string
+from .bytes_2_binary_string import Bytes2BinaryString
 
 
-class Bytes_2_binary_string_Test(TestCase):
+class Bytes2BinaryStringTest(TestCase):
 
     def setUp(self):
-        self.test_object = Bytes_2_binary_string()
+        self.test_object = Bytes2BinaryString()
 
     def test_bytes_2_binary_string(self):
         test_value = b'@ABC'

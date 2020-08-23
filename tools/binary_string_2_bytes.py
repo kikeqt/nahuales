@@ -1,13 +1,13 @@
-__version__ = "$Version: 2.0.1"
+__version__ = "$Version: 3.0.0"
 
-from .integer_2_bytes import Integer_2_bytes
+from .integer_2_bytes import Integer2Bytes
 
 
-class Binary_string_2_bytes(Integer_2_bytes):
+class BinaryString2Bytes(Integer2Bytes):
 
     def binary_string_2_bytes(self, data: str, max_number_bits: int = 0):
         """Translate a string of ones and zeros to bytes"""
-        myOutputBytes = b''
+        my_output_bytes = b''
         data = data.strip()
         data = data.replace(' ', '')
 
@@ -15,15 +15,15 @@ class Binary_string_2_bytes(Integer_2_bytes):
             max_number_bits = len(data)
 
         for block in range(max_number_bits // 8):
-            myByte = 0b0
+            my_byte = 0b0
 
-            for myBit in reversed(range(8)):
-                pos = block * 8 + myBit
+            for my_bit in reversed(range(8)):
+                pos = block * 8 + my_bit
 
                 if pos < max_number_bits:
                     if int(data[pos: pos + 1]) == 1:
-                        myByte |= 0b1 << 7 - myBit
+                        my_byte |= 0b1 << 7 - my_bit
 
-            myOutputBytes += self.integer_2_bytes(myByte)
+            my_output_bytes += self.integer_2_bytes(my_byte)
 
-        return myOutputBytes
+        return my_output_bytes

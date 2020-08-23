@@ -6,12 +6,12 @@ from datetime import datetime
 
 
 def print_color(string_output: str, type: str, show_date: str = True):
-    timeStamp = f"{datetime.now().strftime('%H:%M:%S')} " if show_date else ""
+    time_stamp = f"{datetime.now().strftime('%H:%M:%S')} " if show_date else ""
 
     if type == 'bad':
         print(
             colorama.Style.BRIGHT + colorama.Fore.RED +
-            '{}{}'.format(timeStamp, string_output) +
+            '{}{}'.format(time_stamp, string_output) +
             colorama.Back.RESET +
             colorama.Fore.RESET +
             colorama.Style.RESET_ALL
@@ -20,7 +20,7 @@ def print_color(string_output: str, type: str, show_date: str = True):
         print(
             colorama.Style.BRIGHT +
             colorama.Fore.GREEN +
-            '{}{}'.format(timeStamp, string_output) +
+            '{}{}'.format(time_stamp, string_output) +
             colorama.Back.RESET +
             colorama.Fore.RESET
         )
@@ -28,7 +28,7 @@ def print_color(string_output: str, type: str, show_date: str = True):
         print(
             colorama.Style.BRIGHT +
             colorama.Fore.BLUE +
-            '{}{}'.format(timeStamp, string_output) +
+            '{}{}'.format(time_stamp, string_output) +
             colorama.Back.RESET +
             colorama.Fore.RESET +
             colorama.Style.RESET_ALL
@@ -37,7 +37,7 @@ def print_color(string_output: str, type: str, show_date: str = True):
         print(
             colorama.Style.BRIGHT +
             colorama.Fore.YELLOW +
-            '{}{}'.format(timeStamp, string_output) +
+            '{}{}'.format(time_stamp, string_output) +
             colorama.Back.RESET +
             colorama.Fore.RESET +
             colorama.Style.RESET_ALL
@@ -46,7 +46,7 @@ def print_color(string_output: str, type: str, show_date: str = True):
         print(
             colorama.Style.BRIGHT +
             colorama.Fore.BLUE +
-            '{}{}'.format(timeStamp, string_output) +
+            '{}{}'.format(time_stamp, string_output) +
             colorama.Back.RESET +
             colorama.Fore.RESET +
             colorama.Style.RESET_ALL

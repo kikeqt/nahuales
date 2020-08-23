@@ -1,9 +1,9 @@
-__version__ = "$Version: 2.0.0"
+__version__ = "$Version: 3.0.0"
 
-from .bytes_2_integer import Bytes_2_integer
+from .bytes_2_integer import Bytes2Integer
 
 
-class Active_bits_iterable(Bytes_2_integer):
+class ActiveBitsIterable(Bytes2Integer):
 
     def active_bits_iterable(self, bytes_parameter: bytes):
         """Generator with the positions of active bits in notation little endian

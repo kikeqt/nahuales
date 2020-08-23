@@ -1,11 +1,11 @@
-__version__ = "$Version: 2.0.0"
+__version__ = "$Version: 3.0.0"
 
 from struct import pack
 
 from .constants import Constants
 
 
-class Float_2_bytes(Constants):
+class Float2Bytes(Constants):
 
     def float_2_bytes(self, float_number: float):
         """Translate a floating number to the data type bytes"""

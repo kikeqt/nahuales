@@ -1,9 +1,9 @@
-__version__ = "$Version: 0.0.2"
+__version__ = "$Version: 2.0.0"
 
-from .count_active_bits import Count_active_bits
+from .count_active_bits import CountActiveBits
 
 
-class Count_inactive_bits(Count_active_bits):
+class CountInactiveBits(CountActiveBits):
 
     def count_inactive_bits(self, bytes_parameter: bytes, max_number_bits: int = 0):
         """Count un-active bits

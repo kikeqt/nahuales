@@ -1,9 +1,9 @@
-__version__ = "$Version: 2.0.2"
+__version__ = "$Version: 3.0.0"
 
 from .constants import Constants
 
 
-class Bytes_2_integer(Constants):
+class Bytes2Integer(Constants):
 
     def bytes_2_integer(self, bytes_parameter: bytes):
         """Translate a data type "bytes" to an integer"""

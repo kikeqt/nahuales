@@ -1,4 +1,4 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 1.0.0"
 
 from unittest import TestCase
 from os import mkdir
@@ -8,7 +8,7 @@ from shutil import rmtree
 from .sync_files import sync_files
 
 
-class Sync_files_Test(TestCase):
+class SyncFilesTest(TestCase):
 
     def test_sync_files(self):
         path_test = 'temp/'

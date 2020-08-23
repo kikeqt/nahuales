@@ -1,10 +1,10 @@
-__version__ = "$Version: 1.0.1"
+__version__ = "$Version: 2.0.0"
 
 from tools.show_file_name import show_file_name
-from .bytes_2_integer import Bytes_2_integer
+from .bytes_2_integer import Bytes2Integer
 
 
-class Count_active_bits(Bytes_2_integer):
+class CountActiveBits(Bytes2Integer):
 
     def count_active_bits(self, bytes_parameter: bytes, max_number_bits: int = 0):
         """Count active bits
@@ -33,15 +33,15 @@ class Count_active_bits(Bytes_2_integer):
             return 0
 
         else:
-            sizeBlock = max_number_bits
+            size_block = max_number_bits
 
             if max_number_bits == 0:
-                sizeBlock = len(bytes_parameter)
+                size_block = len(bytes_parameter)
 
-            cntOnes = 0
+            counter_ones = 0
 
-            for bit in reversed(range(sizeBlock * 8)):
+            for bit in reversed(range(size_block * 8)):
                 if block >> bit & 0b1 == 1:
-                    cntOnes += 1
+                    counter_ones += 1
 
-            return cntOnes
+            return counter_ones

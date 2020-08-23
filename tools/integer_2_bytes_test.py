@@ -1,13 +1,13 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 1.0.0"
 
 from unittest import TestCase
 
-from .bytes_2_integer import Bytes_2_integer
+from .integer_2_bytes import Integer2Bytes
 
 
-class Bytes_2_integer_Test(TestCase):
+class Integer2BytesTest(TestCase):
     def setUp(self):
-        self.test_object = Bytes_2_integer()
+        self.test_object = Integer2Bytes()
 
     def test_binary_2_string(self):
         test_values = (
@@ -271,6 +271,6 @@ class Bytes_2_integer_Test(TestCase):
 
         for item in range(len(test_values)):
             self.assertEqual(
-                item,
-                self.test_object.bytes_2_integer(test_values[item])
+                test_values[item],
+                self.test_object.integer_2_bytes(item)
             )

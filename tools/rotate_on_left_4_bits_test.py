@@ -1,18 +1,18 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 1.0.0"
 
 from unittest import TestCase
 
-from .rotate_on_left_4_bits import Rotate_on_left_4_bits
-from tools.bytes_2_binary_string import Bytes_2_binary_string
+from .rotate_on_left_4_bits import RotateOnLeft4Bits
+from tools.bytes_2_binary_string import Bytes2BinaryString
 
 
-class Rotate_on_left_4_bits_Test(TestCase):
+class RotateOnLeft4BitsTest(TestCase):
 
     def setUp(self):
-        self.test_object = Rotate_on_left_4_bits()
+        self.test_object = RotateOnLeft4Bits()
 
     def test_rotate_on_left_4_bits(self):
-        bytes_2_bin_str = Bytes_2_binary_string()
+        bytes_2_bin_str = Bytes2BinaryString()
         test_value = b'@ABC'
 
         test_values = (

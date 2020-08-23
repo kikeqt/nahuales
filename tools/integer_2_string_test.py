@@ -1,13 +1,13 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 1.0.0"
 
 from unittest import TestCase
 
-from .integer_2_string import Integer_2_string
+from .integer_2_string import Integer2String
 
 
-class Integer_2_string_Test(TestCase):
+class Integer2StringTest(TestCase):
     def setUp(self):
-        self.test_object = Integer_2_string()
+        self.test_object = Integer2String()
 
     def test_binary_2_string(self):
         test_values = (

@@ -1,13 +1,13 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 1.0.0"
 
 from unittest import TestCase
 
-from .rotate_on_right_4_bytes import Rotate_on_right_4_bytes
+from .rotate_on_right_4_bytes import RotateOnRight4Bytes
 
 
-class Rotate_on_right_4_bytes_Test(TestCase):
+class RotateOnRight4BytesTest(TestCase):
     def setUp(self):
-        self.test_object = Rotate_on_right_4_bytes()
+        self.test_object = RotateOnRight4Bytes()
 
     def test_rotate_on_right_4_bytes(self):
         test_value = b'@ABC'
