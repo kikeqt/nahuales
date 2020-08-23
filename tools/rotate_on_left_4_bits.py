@@ -5,10 +5,9 @@ from tools.integer_2_bytes import Integer2Bytes
 
 
 class RotateOnLeft4Bits(Bytes2Integer, Integer2Bytes):
-
     def rotate_on_left_4_bits(self, bytes_parameter: bytes, shift: int = 1):
         """Circular shift to the right"""
-        block = 0
+        block: int
         size_block = len(bytes_parameter)
         shift %= size_block * 8
         complement_of_shift = size_block * 8 - shift
@@ -31,5 +30,5 @@ class RotateOnLeft4Bits(Bytes2Integer, Integer2Bytes):
 
             return output
 
-        print('Fatal error (ror): The argument must be a byte type')
-        exit()
+        else:
+            raise ValueError('The argument must be a byte type')
