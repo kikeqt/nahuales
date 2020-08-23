@@ -1,9 +1,9 @@
 __version__ = "$Version: 2.0.1"
 
 
-class Bytes_2_bits_iterative(object):
+class Bytes2BitsIterative(object):
+    @staticmethod
     def bytes_2_bits_iterative(
-        self,
         bytes_parameter: bytes,
         max_number_bits: int = 0
     ):
@@ -13,9 +13,9 @@ class Bytes_2_bits_iterative(object):
 
         read_counter = 0
 
-        for cByte in bytes_parameter:
-            for cBit in reversed(range(8)):
+        for current_byte in bytes_parameter:
+            for current_bit in reversed(range(8)):
                 read_counter += 1
 
-                if (read_counter <= max_number_bits):
-                    yield cByte >> cBit & 0b1
+                if read_counter <= max_number_bits:
+                    yield current_byte >> current_bit & 0b1

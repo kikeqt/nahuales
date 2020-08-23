@@ -1,8 +1,9 @@
-__version__ = "$Version: 2.0.2"
+__version__ = "$Version: 3.0.0"
 
 
-class Rotate_on_right_4_bytes(object):
-    def rotate_on_right_4_bytes(self, bytes_parameter: bytes, shift: int = 1):
+class RotateOnRight4Bytes(object):
+    @staticmethod
+    def rotate_on_right_4_bytes(bytes_parameter: bytes, shift: int = 1):
         """Circular shift to the right"""
         shift %= len(bytes_parameter)
 

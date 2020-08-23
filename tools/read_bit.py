@@ -1,8 +1,9 @@
-__version__ = "$Version: 2.0.2"
+__version__ = "$Version: 3.0.0"
 
 
-class Read_bit(object):
-    def read_bit(self, bytes_parameter: bytes, position: int):
+class ReadBit(object):
+    @staticmethod
+    def read_bit(bytes_parameter: bytes, position: int):
         """Read a bit of the indicated position
 
         Note:

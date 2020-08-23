@@ -1,16 +1,17 @@
-__version__ = "$Version: 2.0.1"
+__version__ = "$Version: 3.0.0"
 
 
-class Replace_byte(object):
+class ReplaceByte(object):
 
-    def replace_byte(self, bytes_parameter: bytes, substitute: bytes, position: int):
+    @staticmethod
+    def replace_byte(bytes_parameter: bytes, substitute: bytes, position: int):
         """Replaces a byte, in a sequence of bytes, in the indicated position"""
         output = b''
 
         if position == 0:
             output = substitute + bytes_parameter[position+1:]
 
-        elif (0 < position < len(bytes_parameter)):
+        elif 0 < position < len(bytes_parameter):
             output = bytes_parameter[:position] + \
                 substitute + bytes_parameter[position+1:]
 
