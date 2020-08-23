@@ -1,8 +1,8 @@
-__version__ = "$Version: 1.0.0"
+__version__ = "$Version: 1.0.1"
 
 from unittest import TestCase
 
-from tools.bytes_2_binary_string import Bytes2BinaryString
+from .bytes_2_binary_string import Bytes2BinaryString
 from .rotate_on_right_4_bits import RotateOnRight4Bits
 
 
