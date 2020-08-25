@@ -1,9 +1,9 @@
-__version__ = "$Version: 1.4.0"
+__version__ = "$Version: 2.0.0"
 
 from typing import Union
 
 
-class STS_Value(object):
+class STSValue(object):
     """Store values of NIST STS
 
     Attributes

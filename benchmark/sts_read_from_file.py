@@ -1,4 +1,4 @@
-__version__ = "$Version: 1.0.0"
+__version__ = "$Version: 1.0.1"
 
 import errno
 from os import strerror
@@ -9,7 +9,7 @@ from typing import Tuple
 from typing import List
 
 from .sts_results_collection import STS_Results_Collection
-from .sts_value import STS_Value
+from .sts_value import STSValue
 
 
 class STS_read_from_file(STS_Results_Collection):
@@ -81,7 +81,7 @@ class STS_read_from_file(STS_Results_Collection):
         item = 0
 
         if test_name not in self._dictionary_results:
-            self._dictionary_results[test_name]: List[STS_Value] = []
+            self._dictionary_results[test_name]: List[STSValue] = []
 
         file_name = self.__base_path + test_name + '/stats.txt'
 
@@ -92,7 +92,7 @@ class STS_read_from_file(STS_Results_Collection):
                         p_value, assignment = self.__extract_p_value(line)
 
                         if len(self._dictionary_results[test_name]) <= item:
-                            sts_value = STS_Value(test_name)
+                            sts_value = STSValue(test_name)
                             self._dictionary_results[test_name].append(
                                 sts_value)
 
@@ -122,7 +122,7 @@ class STS_read_from_file(STS_Results_Collection):
         item = 0
 
         if test_name not in self._dictionary_results:
-            self._dictionary_results[test_name]: List[STS_Value] = []
+            self._dictionary_results[test_name]: List[STSValue] = []
 
         file_name = self.__base_path + test_name + '/stats.txt'
 
@@ -133,7 +133,7 @@ class STS_read_from_file(STS_Results_Collection):
                     p_value, assignment = self.__extract_p_value(line)
 
                     if len(self._dictionary_results[test_name]) <= item:
-                        sts_value = STS_Value(test_name)
+                        sts_value = STSValue(test_name)
                         self._dictionary_results[test_name].append(sts_value)
 
                     self._dictionary_results[test_name][item].p_value = p_value
