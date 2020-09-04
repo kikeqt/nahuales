@@ -58,7 +58,7 @@ class DataBase(object):
     def _put(
             self,
             file_name: str,
-            dict_data: List[Dict[str, Union[float, int, str]]],
+            dict_data: Dict[str, Union[float, int, str]],
             query_content: str,
             exists_function,
             check_differences_function,
