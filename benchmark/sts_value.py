@@ -1,4 +1,4 @@
-__version__ = "$Version: 2.0.0"
+__version__ = "$Version: 2.0.1"
 
 from typing import Union
 
@@ -36,11 +36,11 @@ class STSValue(object):
         self.reset()
 
     def __str__(self):
-        if self.__p_value == None:
-            return 'There is not record'
+        if self.__p_value:
+            return f'[{self.p_value}, "{self.assignment}", {self.category}],'
 
         else:
-            return f'[{self.p_value}, "{self.assignment}", {self.category}],'
+            return 'There is not record'
 
     def reset(self):
         """reset() -> None
@@ -68,10 +68,10 @@ class STSValue(object):
     def assignment(self, assignment: str):
         bool_assignment: bool
 
-        if self.__p_value == None:
+        if not self.__p_value:
             raise ValueError("p_value must be set first")
 
-        if assignment != None:
+        if assignment:
             assignment = assignment.upper()
 
             if assignment in ['SUCCESS', 'FAILURE']:
@@ -82,7 +82,7 @@ class STSValue(object):
                     print(self.__test_name, self.__assignment)
                     raise ValueError("The value does not correspond to the " +
                                      f"criterion, {self.__p_value} should be " +
-                                     ("SUCCESS" if verify_assignment else "FAILURE"))
+                                     ("SUCCESS" if self.__assignment else "FAILURE"))
                 # END Criteria check
 
             else:
@@ -95,11 +95,11 @@ class STSValue(object):
 
     @category.setter
     def category(self, category: Union[int, str]):
-        if type(category) == type(''):
+        if isinstance(category, str):
             category = category.upper()
             category = int(category[1:])
 
-        if type(category) == type(0):
+        if isinstance(category, int):
             if 1 <= category <= 10:
                 self.__category = category
 
