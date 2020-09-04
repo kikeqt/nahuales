@@ -5,14 +5,13 @@ from os import strerror
 from os.path import exists
 import re
 from typing import Union
-from typing import Tuple
 from typing import List
 
-from .sts_results_collection import STS_Results_Collection
+from .sts_results_collection import STSResultsCollection
 from .sts_value import STSValue
 
 
-class STS_read_from_file(STS_Results_Collection):
+class STSReadFromFile(STSResultsCollection):
     """Read the STS statistics files
 
     Methods
@@ -24,10 +23,11 @@ class STS_read_from_file(STS_Results_Collection):
     """
     __base_path: str
 
-    def __extract_p_value(self, line_content: str):
+    @staticmethod
+    def __extract_p_value(line_content: str):
         assignment: Union[str, None]
-        p_value = None
-        regEx: str
+        p_value: float
+        reg_ex: str
 
         if 'SUCCESS' in line_content:
             assignment = 'SUCCESS'
@@ -38,14 +38,14 @@ class STS_read_from_file(STS_Results_Collection):
         else:
             assignment = None
 
-        if ('p_value1' in line_content or 'p_value2' in line_content):
-            regEx = r"p_value[12] = ([\d\.]+)"
+        if 'p_value1' in line_content or 'p_value2' in line_content:
+            reg_ex = r"p_value[12] = ([\d\.]+)"
 
-        elif ('p_value' in line_content or 'p-value' in line_content):
-            regEx = r"p[_-]value = ([\d\.]+)"
+        elif 'p_value' in line_content or 'p-value' in line_content:
+            reg_ex = r"p[_-]value = ([\d\.]+)"
 
-        elif ('SUCCESS' in line_content or 'FAILURE' in line_content):
-            regEx = r" ([\d\.]{8}) [SF]"
+        elif 'SUCCESS' in line_content or 'FAILURE' in line_content:
+            reg_ex = r" ([\d\.]{8}) [SF]"
 
         elif len(line_content) == 54:
             p_value = float(line_content[46:-1])
@@ -57,7 +57,7 @@ class STS_read_from_file(STS_Results_Collection):
             print(line_content)
             print('Unsupported case')
 
-        pattern = re.compile(regEx)
+        pattern = re.compile(reg_ex)
         search = pattern.search(line_content)
 
         if search:
@@ -75,7 +75,7 @@ class STS_read_from_file(STS_Results_Collection):
 
         PARAMETERS
         ----------
-        file_name: str
+        test_name: str
             Name of the file to be read
         """
         item = 0
@@ -112,8 +112,8 @@ class STS_read_from_file(STS_Results_Collection):
 
         PARAMETERS
         ----------
-        file_name: str
-            Name of the file to be read
+        test_name: str
+            Name of the file of test to be read
 
         number_line
             Indicates the marked line to find the last element in the column,
@@ -146,14 +146,9 @@ class STS_read_from_file(STS_Results_Collection):
                 errno.ENOENT, strerror(errno.ENOENT), file_name)
 
     def _read_from_final_report_file(self):
-        """read_from_file(final_report_file: str) -> dict
+        """read_from_file() -> dict
 
         Get the results of the final report file.
-
-        PARAMETERS
-        ----------
-        final_report_file: str
-            Name of the file to be read
         """
         final_report_file = self.__base_path + 'finalAnalysisReport.txt'
 
@@ -195,11 +190,6 @@ class STS_read_from_file(STS_Results_Collection):
 
         Obtain name of analyzed file
 
-        PARAMETERS
-        ----------
-        final_report_file: str
-            Name of the file to be read and it contains the final report
-
         RETURNS
         -------
         str
@@ -214,16 +204,15 @@ class STS_read_from_file(STS_Results_Collection):
 
                 content = file_report.readline()
 
-                regEx = r'<([^>]+)>'
-                pattern = re.compile(regEx)
+                reg_ex = r'<([^>]+)>'
+                pattern = re.compile(reg_ex)
                 search = pattern.search(content)
 
                 if search:
                     return search.group(1)
 
                 else:
-                    raise ValueError('FileName not found')
-                    return None
+                    raise ValueError('File name not found')
         else:
             return ''
 
