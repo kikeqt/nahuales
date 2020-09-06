@@ -1,8 +1,9 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 0.0.2"
 
 import sqlite3
 from typing import List
 from typing import Dict
+from typing import Tuple
 from typing import Union
 
 from .db import DataBase
@@ -16,6 +17,9 @@ class DBTCSTSRecords(DataBase):
     __id_file: int
     __id_test: int
     __id_result: int
+    __query_insert: str
+    __results_buffer: Dict[int, Dict[int, List[any]]]
+    __last_result: bool
 
     def __init__(self, data_base_name: str):
         super().__init__(data_base_name)
@@ -31,10 +35,38 @@ class DBTCSTSRecords(DataBase):
 
         self._get_dictionary_test()
 
-    def exist(self, file_name: str):
-        """exist(file_name: str) -> bool
+    def __load_results_buffer(self):
+        self.__results_buffer: Dict[int, Dict[int, Dict[int, Tuple[any]]]] = {}
+        
+        connection = sqlite3.connect(self._data_base_name)
+        cursor = connection.cursor()
 
-        Answer the question, are there STS file records?
+        query = f"SELECT * FROM tc_sts_records WHERE id_file = \'{self.__id_file}\'"
+        cursor.execute(query)
+        results = cursor.fetchall()
+
+        connection.close()
+        
+        if results:
+            for item in results:
+                id_file = item[0]
+                id_test = item[1]
+                id_result = item[2]
+                values = item[3:]
+                
+                if id_file not in self.__results_buffer:
+                    self.__results_buffer[id_file]: Dict[Dict[int, Tuple[any]]] = {}
+                    
+                if id_test not in self.__results_buffer[id_file]:
+                    self.__results_buffer[id_file][id_test]: Dict[int, Tuple[any]] = {}
+                    
+                if id_result not in self.__results_buffer[id_file][id_test]:
+                    self.__results_buffer[id_file][id_test][id_result]: Tuple[any] = values
+
+    def __exist_record(self, file_name: str):
+        """__exist_record(file_name: str) -> bool
+
+        Answer the question, are there STS file record?
 
         PARAMETERS
         ----------
@@ -42,10 +74,24 @@ class DBTCSTSRecords(DataBase):
             Name of analyzed file
         """
         id_file = self._get_id_file(file_name)
-
-        query = f"SELECT COUNT(id_file) FROM tc_sts_records WHERE id_file = '{id_file}'"
-        query += f" AND id_test = {self.__id_test} AND id_result = {self.__id_result}"
-        return self._query_boolean(query)
+        
+        if id_file not in self.__results_buffer:
+            self.__id_file = id_file
+            self.__load_results_buffer()
+            
+        if id_file in self.__results_buffer:
+            if self.__id_test in self.__results_buffer[id_file]:
+                if self.__id_result in self.__results_buffer[id_file][self.__id_test]:
+                    return True
+                
+                else:
+                    return False
+                
+            else:
+                return False
+            
+        else:
+            return False
 
     def _check_differences(
             self,
@@ -85,10 +131,17 @@ class DBTCSTSRecords(DataBase):
                 f'You must record the file first, before the STS results.')
 
         values_dictionary_list = self._decode_sts_results(file_name, details)
+        len_values_dictionary_list = len(values_dictionary_list)
 
-        for values in values_dictionary_list:
+        self.__query_insert = ''
+        self.__load_results_buffer()
+
+        for item in range(len_values_dictionary_list):
+            values = values_dictionary_list[item]
             self.__id_test = values['id_test']
             self.__id_result = values['id_result']
+
+            self.__last_result = True if item == len_values_dictionary_list - 1 else False
 
             query = f"SELECT * FROM tc_sts_records WHERE id_file = \'{self.__id_file}\'"
             query += f" AND id_test = {self.__id_test} AND id_result = {self.__id_result}"
@@ -97,7 +150,7 @@ class DBTCSTSRecords(DataBase):
                 file_name,
                 values,
                 query,
-                self.exist,
+                self.__exist_record,
                 self._check_differences,
                 self._insert,
                 self._update
@@ -148,26 +201,26 @@ class DBTCSTSRecords(DataBase):
             raise ValueError(
                 f'The {file_name} file is not registered.  Please check.')
 
-    def _insert(self, file_name: str, values_dictionary_list: Dict[str, Union[str, int, float]]):
+    def _insert(
+            self,
+            file_name: str,
+            values_dictionary_list: Dict[str, Union[str, int, float]]
+    ):
+        # To prevent having to redefine the base class
         _ = file_name
 
         list_of_values = [values_dictionary_list[key]
                           for key in self._list_of_sts_columns]
 
-        where = self._make_where(self._list_of_sts_columns, list_of_values)
         column_names = str(self._list_of_sts_columns)[
             1:-1].replace("'", '')
         str_values = str(list_of_values)[1:-1]
 
-        query = f'SELECT {column_names} FROM tc_sts_records WHERE {where}'
-        self._cursor.execute(query)
-        records = self._cursor.fetchone()
+        self.__query_insert += f'({str_values}), '
 
-        if records:
-            print(f"{str_values} is already recorded in tc_sts_records")
-
-        else:
-            query = f'INSERT INTO tc_sts_records ({column_names}) VALUES ({str_values})'
+        if self.__last_result:
+            query = f'INSERT INTO tc_sts_records ({column_names}) '
+            query += f'VALUES {self.__query_insert[:-2]};'
             self._cursor.execute(query)
 
     def _update(self, file_name: str, differences: Dict[str, Union[str, int, float]]):
