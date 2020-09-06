@@ -1,4 +1,4 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 0.0.2"
 
 from typing import Dict
 from typing import Union
@@ -31,12 +31,12 @@ class DBTCFiles(DataBase):
             details,
             query,
             self.is_the_file_registered,
-            self._check_differences,
-            self._insert_file,
-            self._update_registered_file
+            self.__check_differences,
+            self.__insert_file,
+            self.__update_registered_file
         )
 
-    def _check_differences(
+    def __check_differences(
             self,
             query_content: str,
             dict_data: Dict[str, Union[float, int, str]]
@@ -56,7 +56,7 @@ class DBTCFiles(DataBase):
                 
         return differences
 
-    def _insert_file(self, file_name: str, details: Dict[str, Union[str, int, float]]):
+    def __insert_file(self, file_name: str, details: Dict[str, Union[str, int, float]]):
         _ = file_name
 
         for item in ['file_name', 'size_in_bytes', 'processing_time']:
@@ -83,7 +83,7 @@ class DBTCFiles(DataBase):
             query = f'INSERT INTO tc_files ({column_names}) VALUES ({str_values})'
             self._cursor.execute(query)
 
-    def _update_registered_file(self, file_name: str, differences: Dict[str, Union[str, int, float]]):
+    def __update_registered_file(self, file_name: str, differences: Dict[str, Union[str, int, float]]):
         update_string = []
 
         for key in differences:
