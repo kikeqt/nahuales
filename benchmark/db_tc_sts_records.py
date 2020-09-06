@@ -1,4 +1,4 @@
-__version__ = "$Version: 0.0.2"
+__version__ = "$Version: 0.0.3"
 
 import sqlite3
 from typing import List
@@ -73,7 +73,7 @@ class DBTCSTSRecords(DataBase):
         file_name: str
             Name of analyzed file
         """
-        id_file = self._get_id_file(file_name)
+        id_file = self.__get_id_file(file_name)
         
         if id_file not in self.__results_buffer:
             self.__id_file = id_file
@@ -93,7 +93,7 @@ class DBTCSTSRecords(DataBase):
         else:
             return False
 
-    def _check_differences(
+    def __check_differences(
             self,
             query_content: str,
             dict_data: Dict[str, Union[float, int, str]]
@@ -130,7 +130,7 @@ class DBTCSTSRecords(DataBase):
             raise KeyError(
                 f'You must record the file first, before the STS results.')
 
-        values_dictionary_list = self._decode_sts_results(file_name, details)
+        values_dictionary_list = self.__decode_sts_results(file_name, details)
         len_values_dictionary_list = len(values_dictionary_list)
 
         self.__query_insert = ''
@@ -151,13 +151,13 @@ class DBTCSTSRecords(DataBase):
                 values,
                 query,
                 self.__exist_record,
-                self._check_differences,
-                self._insert,
-                self._update
+                self.__check_differences,
+                self.__insert,
+                self.__update
             )
 
-    def _decode_sts_results(self, file_name: str, details: Dict[str, List[STSValue]]):
-        self.__id_file = self._get_id_file(file_name)
+    def __decode_sts_results(self, file_name: str, details: Dict[str, List[STSValue]]):
+        self.__id_file = self.__get_id_file(file_name)
 
         values_dictionary_list = []
 
@@ -184,7 +184,7 @@ class DBTCSTSRecords(DataBase):
 
         return values_dictionary_list
 
-    def _get_id_file(self, file_name: str):
+    def __get_id_file(self, file_name: str):
         connection = sqlite3.connect(self._data_base_name)
         cursor = connection.cursor()
 
@@ -201,7 +201,7 @@ class DBTCSTSRecords(DataBase):
             raise ValueError(
                 f'The {file_name} file is not registered.  Please check.')
 
-    def _insert(
+    def __insert(
             self,
             file_name: str,
             values_dictionary_list: Dict[str, Union[str, int, float]]
@@ -223,7 +223,7 @@ class DBTCSTSRecords(DataBase):
             query += f'VALUES {self.__query_insert[:-2]};'
             self._cursor.execute(query)
 
-    def _update(self, file_name: str, differences: Dict[str, Union[str, int, float]]):
+    def __update(self, file_name: str, differences: Dict[str, Union[str, int, float]]):
         _ = file_name
         update_string = []
 
@@ -253,7 +253,7 @@ class DBTCSTSRecords(DataBase):
         """
         output_results = {}
 
-        id_file = self._get_id_file(file_name)
+        id_file = self.__get_id_file(file_name)
 
         connection = sqlite3.connect(self._data_base_name)
         cursor = connection.cursor()
@@ -290,7 +290,7 @@ class DBTCSTSRecords(DataBase):
         file_name: str
             Name of analyzed file
         """
-        id_file = self._get_id_file(file_name)
+        id_file = self.__get_id_file(file_name)
 
         connection = sqlite3.connect(self._data_base_name)
         cursor = connection.cursor()
