@@ -1,4 +1,4 @@
-__version__ = "$Version: 0.0.3"
+__version__ = "$Version: 0.0.4"
 
 import sqlite3
 from typing import List
@@ -113,7 +113,7 @@ class DBTCSTSRecords(DataBase):
 
         return differences
 
-    def put(self, file_name: str, details: Dict[str, List[STSValue]]):
+    def put(self, file_name: str, details: Dict[str, List[List[any]]]):
         """put(file_name: str, results: Dict[str, List[STS_Value]]) -> bool
 
         Register the file name in the catalog and saves or replaces the STS records
@@ -156,7 +156,7 @@ class DBTCSTSRecords(DataBase):
                 self.__update
             )
 
-    def __decode_sts_results(self, file_name: str, details: Dict[str, List[STSValue]]):
+    def __decode_sts_results(self, file_name: str, details: Dict[str, List[List[any]]]):
         self.__id_file = self.__get_id_file(file_name)
 
         values_dictionary_list = []
