@@ -57,7 +57,6 @@ class DataBase(object):
 
     def _put(
             self,
-            file_name: str,
             dict_data: Dict[str, Union[float, int, str]],
             query_content: str,
             exists_function,
@@ -68,14 +67,14 @@ class DataBase(object):
         self._connection = sqlite3.connect(self._data_base_name)
         self._cursor = self._connection.cursor()
 
-        if exists_function(file_name):
+        if exists_function():
             differences = check_differences_function(query_content, dict_data)
 
             if len(differences) > 0:
-                update_function(file_name, differences)
+                update_function(differences)
 
         else:
-            insert_function(file_name, dict_data)
+            insert_function(dict_data)
 
         self._connection.commit()
         self._connection.close()
@@ -90,16 +89,3 @@ class DataBase(object):
             where = where.replace(f"'{item}'", f'{item}')
 
         return where
-
-    def is_the_file_registered(self, file_name: str):
-        """is_the_file_registered(file_name: str) -> bool
-
-        Answer the question, are there file performance results?
-
-        PARAMETERS
-        ----------
-        file_name: str
-            Name of analyzed file
-        """
-        query = f"SELECT COUNT(id_file) FROM tc_files WHERE file_name = '{file_name}'"
-        return self._query_boolean(query)
