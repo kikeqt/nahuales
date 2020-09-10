@@ -3,10 +3,10 @@ __version__ = "$Version: 0.0.2"
 from typing import Dict
 from typing import Union
 
-from .db import DataBase
+from .db_register import DBRegister
 
 
-class DBTCFiles(DataBase):
+class DBTCFiles(DBRegister):
     def __init__(self, data_base_name: str):
         super().__init__(data_base_name)
 
@@ -25,9 +25,11 @@ class DBTCFiles(DataBase):
             'size_in_bytes' and 'processing_time'.  It might also contain:
             'category' or 'notes'
         """
-        query = f"SELECT * FROM tc_files WHERE file_name = \'{details['file_name']}\'"
+        self._set_file_name(details['file_name'])
+
+        query = f"SELECT * FROM tc_files WHERE file_name = \'{self._file_name}\'"
+
         self._put(
-            details['file_name'],
             details,
             query,
             self.is_the_file_registered,
@@ -53,12 +55,10 @@ class DBTCFiles(DataBase):
         for key in dict_data:
             if data_stored[key] != dict_data[key]:
                 differences[key] = dict_data[key]
-                
+
         return differences
 
-    def __insert_file(self, file_name: str, details: Dict[str, Union[str, int, float]]):
-        _ = file_name
-
+    def __insert_file(self, details: Dict[str, Union[str, int, float]]):
         for item in ['file_name', 'size_in_bytes', 'processing_time']:
             if item not in details:
                 self._connection.close()
@@ -77,13 +77,14 @@ class DBTCFiles(DataBase):
         records = self._cursor.fetchone()
 
         if records:
-            print(f"{details['file_name']} is already recorded in tc_files.")
+            print(self._file_name)
+            print(f"{self._file_name} is already recorded in tc_files.")
 
         else:
             query = f'INSERT INTO tc_files ({column_names}) VALUES ({str_values})'
             self._cursor.execute(query)
 
-    def __update_registered_file(self, file_name: str, differences: Dict[str, Union[str, int, float]]):
+    def __update_registered_file(self, differences: Dict[str, Union[str, int, float]]):
         update_string = []
 
         for key in differences:
@@ -91,5 +92,5 @@ class DBTCFiles(DataBase):
 
         update_string = ', '.join(update_string)
 
-        query = f'UPDATE tc_files SET {update_string} WHERE file_name = \'{file_name}\''
+        query = f'UPDATE tc_files SET {update_string} WHERE file_name = \'{self._file_name}\''
         self._cursor.execute(query)
