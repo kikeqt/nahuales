@@ -6,12 +6,12 @@ from typing import Dict
 from typing import Tuple
 from typing import Union
 
-from .db import DataBase
+from .db_register import DBRegister
 from .db_tc_files import DBTCFiles
 from .sts_value import STSValue
 
 
-class DBTCSTSRecords(DataBase):
+class DBTCSTSRecords(DBRegister):
     _list_of_sts_columns: List[str]
     __tc_files: DBTCFiles
     __id_file: int
@@ -65,17 +65,12 @@ class DBTCSTSRecords(DataBase):
                 if id_result not in self.__results_buffer[id_file][id_test]:
                     self.__results_buffer[id_file][id_test][id_result]: Tuple[any] = values
 
-    def __exist_record(self, file_name: str) -> bool:
-        """__exist_record(file_name: str) -> bool
+    def __exist_record(self) -> bool:
+        """__exist_record() -> bool
 
         Answer the question, are there STS file record?
-
-        PARAMETERS
-        ----------
-        file_name: str
-            Name of analyzed file
         """
-        id_file = self.__get_id_file(file_name)
+        id_file = self.__get_id_file(self._file_name)
 
         if id_file not in self.__results_buffer:
             self.__id_file = id_file
@@ -132,7 +127,9 @@ class DBTCSTSRecords(DataBase):
             raise KeyError(
                 f'You must record the file first, before the STS results.')
 
-        values_dictionary_list = self.__decode_sts_results(file_name, details)
+        self._set_file_name(file_name)
+
+        values_dictionary_list = self.__decode_sts_results(details)
         len_values_dictionary_list = len(values_dictionary_list)
 
         self.__query_insert = ''
@@ -149,7 +146,6 @@ class DBTCSTSRecords(DataBase):
             query += f" AND id_test = {self.__id_test} AND id_result = {self.__id_result}"
 
             self._put(
-                file_name,
                 values,
                 query,
                 self.__exist_record,
@@ -158,8 +154,8 @@ class DBTCSTSRecords(DataBase):
                 self.__update
             )
 
-    def __decode_sts_results(self, file_name: str, details: Dict[str, List[List[any]]]) -> List[List[any]]:
-        self.__id_file = self.__get_id_file(file_name)
+    def __decode_sts_results(self, details: Dict[str, List[List[any]]]) -> List[Dict[str, any]]:
+        self.__id_file = self.__get_id_file(self._file_name)
 
         values_dictionary_list = []
 
@@ -204,12 +200,8 @@ class DBTCSTSRecords(DataBase):
 
     def __insert(
             self,
-            file_name: str,
             values_dictionary_list: Dict[str, Union[str, int, float]]
     ):
-        # To prevent having to redefine the base class
-        _ = file_name
-
         list_of_values = [values_dictionary_list[key]
                           for key in self._list_of_sts_columns]
 
@@ -224,8 +216,7 @@ class DBTCSTSRecords(DataBase):
             query += f'VALUES {self.__query_insert[:-2]};'
             self._cursor.execute(query)
 
-    def __update(self, file_name: str, differences: Dict[str, Union[str, int, float]]):
-        _ = file_name
+    def __update(self, differences: Dict[str, Union[str, int, float]]):
         update_string = []
 
         for key in differences:
